@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -21,6 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/index").setViewName("index");
+                registry.addViewController("/file").setViewName("file");
             }
 
             //            拦截器
@@ -38,3 +40,12 @@ public class MvcConfig implements WebMvcConfigurer {
         return webMvcConfigurer;
     }
 }
+//@Configuration
+//public class MvcConfig extends WebMvcConfigurationSupport{
+//    private String UPLOAD_FOLDER = "///C:/Users/Administrator/Desktop/images/";
+//    @Override
+//    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        super.addResourceHandlers(registry);
+//        registry.addResourceHandler("/img/**").addResourceLocations("file:" + UPLOAD_FOLDER);
+//    }
+//}

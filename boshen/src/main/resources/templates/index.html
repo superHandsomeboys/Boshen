@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>2131</h2>
+    <p th:text="${article.content}"></p>
     <div th:each="slider:${sliders}">
         <h2 th:text="${slider.uri}"></h2>
         <img th:src="${slider.uri}" th:if="${slider.type == 1}">

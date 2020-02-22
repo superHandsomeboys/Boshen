@@ -9,9 +9,19 @@ import java.util.List;
 @Mapper
 public interface TrainMapper {
 
+    /**
+     * 根据id查询培训
+     * @param id
+     * @return
+     */
     @Select("select * from train where train_id = #{id}")
     public List<Train> get(int id);
 
+    /**
+     * 根据标签id查询培训
+     * @param tag_id
+     * @return
+     */
     @Select("select * from train where train_id in (select t_id from train_tag where t_tag_id = #{tag_id})")
     @Results({
             @Result(id = true, column = "train_id", property = "train_id"),
@@ -23,6 +33,10 @@ public interface TrainMapper {
     })
     public List<Train> getByTagId(int tag_id);
 
+    /**
+     * 查询所有培训
+     * @return
+     */
     @Select("select * from Train")
     @Results({
             @Result(id = true, column = "train_id", property = "train_id"),
@@ -35,14 +49,29 @@ public interface TrainMapper {
     })
     public List<Train> list();
 
+    /**
+     * 添加培训
+     * @param train
+     * @return
+     */
     @Insert("insert into train (title, videourl, author_id, category_id)" +
             "values " +
             "(#{title}, #{videourl}), #{author_id}, #{category_id}")
-    public Train insert(Train train);
+    public int insert(Train train);
 
+    /**
+     * 更新培训
+     * @param train
+     * @return
+     */
     @Update("update train set title = #{title}, videourl = #{videourl}, author_id = #{author_id}, category_id = #{category_id} where train_id = #{train_id}")
-    public Train update(Train train);
+    public int update(Train train);
 
+    /**
+     * 删除培训
+     * @param id
+     * @return
+     */
     @Delete("delete from train where train_id = #{train_id}")
-    public Train delete(int id);
+    public int delete(int id);
 }

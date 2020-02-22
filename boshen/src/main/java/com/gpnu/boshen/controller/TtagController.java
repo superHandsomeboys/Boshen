@@ -15,16 +15,31 @@ public class TtagController {
     @Autowired
     private TtagMapper ttagMapper;
 
+    /**
+     * 查询所有的培训标签
+     * @return
+     */
     @GetMapping("/train/tags")
     public List<Ttag> list() {
         return ttagMapper.list();
     }
 
+    /**
+     * 添加标签
+     * @param ttag
+     * @return
+     */
     @PostMapping("/train/tag")
     public Ttag insert(Ttag ttag) {
         return ttagMapper.insert(ttag);
     }
 
+    /**
+     * 根据id查询标签
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/train/tag/{id}")
     public String toEditPage(@PathVariable("id") int id, Model model) {
         Ttag train_tag = ttagMapper.get(id);
@@ -33,11 +48,21 @@ public class TtagController {
         return "/train/tag/add";
     }
 
+    /**
+     * 更新
+     * @param ttag
+     * @return
+     */
     @PutMapping("/train/tag")
     public Ttag update(Ttag ttag) {
         return ttagMapper.update(ttag);
     }
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     @DeleteMapping("/train/tag/{id}")
     public Ttag delete(@PathVariable("id") int id) {
         return ttagMapper.delete(id);

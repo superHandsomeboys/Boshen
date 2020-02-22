@@ -19,16 +19,31 @@ public class TrainCategoryController {
     @Autowired
     private TrainCategoryMapper trainCategoryMapper;
 
+    /**
+     * 查询所有培训类别
+     * @return
+     */
     @GetMapping("/train/categories")
     public List<TrainCategory> list() {
         return trainCategoryMapper.list();
     }
 
+    /**
+     * 添加培训类别
+     * @param trainCategory
+     * @return
+     */
     @PostMapping("/train/category")
     public TrainCategory insert(TrainCategory trainCategory) {
         return trainCategoryMapper.insert(trainCategory);
     }
 
+    /**
+     * 根据id查询培训类别
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/train/category/{id}")
     public String toEditPage(@PathVariable("id") int id, Model model) {
         TrainCategory trainCategory = trainCategoryMapper.get(id);
@@ -37,11 +52,21 @@ public class TrainCategoryController {
         return "/train/category/add";
     }
 
+    /**
+     * 更新培训类别
+     * @param trainCategory
+     * @return
+     */
     @PutMapping("/train/category")
     public TrainCategory update(TrainCategory trainCategory) {
         return trainCategoryMapper.update(trainCategory);
     }
 
+    /**
+     * 删除培训类别
+     * @param id
+     * @return
+     */
     @Delete("/train/category/{id}")
     public TrainCategory delete(@PathVariable("id") int id) {
         return trainCategoryMapper.delete(id);

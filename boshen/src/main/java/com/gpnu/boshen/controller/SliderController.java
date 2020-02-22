@@ -17,6 +17,10 @@ public class SliderController {
     @Autowired
     SliderMapper sliderMapper;
 
+    /**
+     * 查询一类型的所有轮播图
+     * @return
+     */
     @GetMapping("/index")
     public String list(Model model) {
         List<Slider> sliders = sliderMapper.list();
@@ -25,6 +29,18 @@ public class SliderController {
 
         return "index";
     }
+
+    /**
+     * 添加轮播图
+     * @param slider
+     * @return
+     */
+
+    /**
+     * 删除轮播图
+     * @param sliderId
+     * @return
+     */
 
 //    @GetMapping("/dept")
 //    public Slider insertSlider(Slider slider) {

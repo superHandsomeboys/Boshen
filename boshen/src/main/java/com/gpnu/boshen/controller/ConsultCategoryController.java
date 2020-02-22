@@ -15,16 +15,31 @@ public class ConsultCategoryController {
     @Autowired
     private ConsultCategoryMapper consultCategoryMapper;
 
+    /**
+     * 查询所有咨询类别
+     * @return
+     */
     @GetMapping("/consult/categories")
     public List<ConsultCategory> list() {
         return consultCategoryMapper.list();
     }
 
+    /**
+     * 添加咨询类别
+     * @param category
+     * @return
+     */
     @PostMapping("/consult/category")
     public ConsultCategory insert(ConsultCategory category) {
         return consultCategoryMapper.insert(category);
     }
 
+    /**
+     * 根据id 查询咨询类别
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/consult/category/{id}")
     public String toEditPage(@PathVariable("id") int id, Model model) {
         ConsultCategory consultCategory = consultCategoryMapper.get(id);
@@ -33,11 +48,11 @@ public class ConsultCategoryController {
         return "/consult/category/add";
     }
 
-    @PutMapping("/consult/category")
-    public ConsultCategory update(ConsultCategory consultCategory) {
-        return consultCategoryMapper.update(consultCategory);
-    }
-
+    /**
+     * 删除咨询类别
+     * @param id
+     * @return
+     */
     @DeleteMapping("/consult/category/{id}")
     public ConsultCategory delete(@PathVariable("id") int id) {
         return consultCategoryMapper.delete(id);

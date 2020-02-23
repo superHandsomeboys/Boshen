@@ -13,8 +13,11 @@ import java.io.Serializable;
 public class Slider implements Serializable {
 
     private Integer id;
+
     private String name;
+
     //type为0代表关于我们页，为1代表首页
-    private int type;
+    private Integer type;
+
     private String uri;
 }

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 前端传入数据
  */
 @Data
-public class UserInfo {
+public class UserAvatarInfo {
 //    @JsonProperty("name")
     private Integer userId;
 

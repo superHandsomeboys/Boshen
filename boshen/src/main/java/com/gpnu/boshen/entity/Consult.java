@@ -6,16 +6,19 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * 咨询
+ */
 @NoArgsConstructor
 @Data
 @Accessors(chain = true)
 public class Consult implements Serializable {
 
-    private int consult_id;
+    private Integer consultId;
 
     private String title;
 
-    private int article_id;
+    private Integer articleId;
 
-    private int consult_category_id;
+    private Integer consultCategoryId;
 }

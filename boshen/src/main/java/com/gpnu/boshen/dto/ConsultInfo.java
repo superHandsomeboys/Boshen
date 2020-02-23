@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class ConsultInfo {
-    private int consult_id;
+    private Integer consultId;
 
     private String title;
 
     private String  content;
 
-    private String consult_category_name;
+    private String consultCategoryName;
 }

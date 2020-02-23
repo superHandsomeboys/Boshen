@@ -45,6 +45,6 @@ public class NewsCategoryController {
      */
     @GetMapping("/newsCategory")
     public ResultVo findAllNewCategory(){
-        return newsCategoryService.findAllNewsCategory();
+        return new ResultVo(NewsCategoryStateEnum.SUCCESS,newsCategoryService.findAllNewsCategory());
     }
 }

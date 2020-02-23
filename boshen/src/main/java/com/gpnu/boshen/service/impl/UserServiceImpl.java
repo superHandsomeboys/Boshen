@@ -1,7 +1,7 @@
 package com.gpnu.boshen.service.impl;
 
 import com.gpnu.boshen.dto.FileInfo;
-import com.gpnu.boshen.dto.UserInfo;
+import com.gpnu.boshen.dto.UserAvatarInfo;
 import com.gpnu.boshen.dynamic.Data;
 import com.gpnu.boshen.entity.User;
 import com.gpnu.boshen.enums.UserStateEnum;
@@ -122,12 +122,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ResultVo updateAvatar(UserInfo userInfo) {
+    public ResultVo updateAvatar(UserAvatarInfo userAvatarInfo) {
         File file = new File("");   //用于catch
         try{
-            int userId = userInfo.getUserId();
+            int userId = userAvatarInfo.getUserId();
             //1.上传头像至本地
-            FileInfo fileInfo = FileUploadUtil.image(userId,userInfo.getAvatar());
+            FileInfo fileInfo = FileUploadUtil.image(userId, userAvatarInfo.getAvatar());
             if (fileInfo == null){
                 return new ResultVo(UserStateEnum.FAIL_IMAGE_FORM_WRONG);
             }

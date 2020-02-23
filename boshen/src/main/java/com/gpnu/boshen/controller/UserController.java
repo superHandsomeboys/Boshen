@@ -1,6 +1,6 @@
 package com.gpnu.boshen.controller;
 
-import com.gpnu.boshen.dto.UserInfo;
+import com.gpnu.boshen.dto.UserAvatarInfo;
 import com.gpnu.boshen.entity.User;
 import com.gpnu.boshen.enums.UserStateEnum;
 import com.gpnu.boshen.service.UserService;
@@ -8,7 +8,6 @@ import com.gpnu.boshen.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -101,17 +100,17 @@ public class UserController {
      *  设置头像，默认头像,user
      */
     @PutMapping("/user/avatar")
-    public ResultVo updateAvatar(@RequestBody UserInfo userInfo){
-        if (userInfo.getAvatar() == null || userInfo.getUserId()==null){
+    public ResultVo updateAvatar(@RequestBody UserAvatarInfo userAvatarInfo){
+        if (userAvatarInfo.getAvatar() == null || userAvatarInfo.getUserId()==null){
             return new ResultVo(UserStateEnum.FAIL_NULL_PARAM);
         }
-        return userService.updateAvatar(userInfo);
+        return userService.updateAvatar(userAvatarInfo);
     }
 
 //    //测试设置头像的接口，搭配file.html
 //    @PostMapping("/update")
 //    public ResultVo update(MultipartFile file){
-//        UserInfo userInfo = new UserInfo();
+//        UserAvatarInfo userInfo = new UserAvatarInfo();
 //        userInfo.setUserId(1);
 //        userInfo.setAvatar(file);
 //        return userService.updateAvatar(userInfo);

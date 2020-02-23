@@ -1,5 +1,6 @@
 package com.gpnu.boshen.mapper;
 
+import com.gpnu.boshen.entity.News;
 import com.gpnu.boshen.entity.NewsCategory;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -43,4 +44,20 @@ public interface NewsCategoryMapper {
      */
     @Select("select * from news_category where news_category_name=#{newsCategoryName}")
     public NewsCategory findByName(String newsCategoryName);
+
+    /**
+     * 用id查新闻类别类
+     * @param id
+     * @return
+     */
+    @Select("select * from news_category where news_category_id = #{newsCategoryName}")
+    public NewsCategory findById(int id);
+
+    /**
+     * 查前i个类别
+     * @param i
+     * @return
+     */
+    @Select("select * from news_category limit 0,#{i}")
+    public List<NewsCategory> findLimit(int i);
 }

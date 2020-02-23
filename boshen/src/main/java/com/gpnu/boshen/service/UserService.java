@@ -1,6 +1,6 @@
 package com.gpnu.boshen.service;
 
-import com.gpnu.boshen.dto.UserInfo;
+import com.gpnu.boshen.dto.UserAvatarInfo;
 import com.gpnu.boshen.entity.User;
 import com.gpnu.boshen.vo.ResultVo;
 
@@ -19,5 +19,5 @@ public interface UserService {
     ResultVo updateUser(User user);
 
     //换头像
-    ResultVo updateAvatar(UserInfo userInfo);
+    ResultVo updateAvatar(UserAvatarInfo userAvatarInfo);
 }

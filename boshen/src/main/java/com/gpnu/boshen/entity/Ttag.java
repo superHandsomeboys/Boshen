@@ -7,12 +7,16 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 培训的标签
+ */
 @NoArgsConstructor
 @Data
 @Accessors(chain = true)
 public class Ttag implements Serializable {
 
-    private int tag_id;
+    private Integer tag_id;
+
     private String tag_name;
 
     private List<Train> trains;

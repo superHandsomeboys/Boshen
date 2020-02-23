@@ -30,4 +30,9 @@ public class News {
 
     private Date createTime;
 
+    //新闻简介
+    private String introduce;
+
+    //评论数量
+    private Integer commentQuantity;
 }

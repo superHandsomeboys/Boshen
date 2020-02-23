@@ -45,11 +45,14 @@ public class NewsCategoryServiceImpl implements NewsCategoryService{
     }
 
     @Override
-    public ResultVo findAllNewsCategory() {
+    public List<NewsCategory> findAllNewsCategory() {
         List<NewsCategory> list = newsCategoryMapper.findAllNewsCategory();
-        ResultVo resultVo = new ResultVo(NewsCategoryStateEnum.SUCCESS);
-        //封装list进vo
-        resultVo.setData(list);
-        return resultVo;
+        return list;
+    }
+
+    @Override
+    public List<NewsCategory> findLimit(int i) {
+
+        return newsCategoryMapper.findLimit(i);
     }
 }

@@ -6,13 +6,18 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * 培训的图片，
+ */
 @NoArgsConstructor
 @Data
 @Accessors(chain = true)
 public class TrainImage implements Serializable {
 
-    private int train_image_id;
-    private int train_id;
+    private Integer train_image_id;
+
+    private Integer train_id;
+
     private String image_url;
 
     private Train train;

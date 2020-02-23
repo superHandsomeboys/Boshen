@@ -6,12 +6,16 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * 培训类别
+ */
 @NoArgsConstructor
 @Data
 @Accessors(chain = true)
 public class TrainCategory implements Serializable {
 
-    private int train_category_id;
+    private Integer train_category_id;
+
     private String train_category_name;
 
     private String introduce_imageurl;

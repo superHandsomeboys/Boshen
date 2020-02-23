@@ -35,4 +35,9 @@ class NewsServiceImplTest {
     void findByPage() {
         System.out.println(newsService.findByPage("est",1,2));
     }
+
+    @Test
+    void findDetailedNewsVOByNewsId(){
+        System.out.println(newsService.findDetailedNewsVOByNewsId(5));
+    }
 }

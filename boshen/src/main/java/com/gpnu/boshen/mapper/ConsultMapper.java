@@ -57,13 +57,13 @@ public interface ConsultMapper {
     public int delete(int id);
 
     /**
-     * 根据类别查询咨询
-     * @param consultCategoryName
+     * 根据类别id查询咨询
+     * @param consultCategoryId
      * @return
      */
-    @Select("select * from consult left join consult_category on category_id = consult_category_id" +
-            "where consult_category_name = #{consultCategoryName}")
-    public List<ConsultInfo> findByCategory(String consultCategoryName);
+    @Select("select * from consult as c" +
+            "where consult_category_id = #{consultCategoryId}")
+    public List<Consult> findByCategory(int consultCategoryId);
 
     /**
      * 根据题目的模糊查询

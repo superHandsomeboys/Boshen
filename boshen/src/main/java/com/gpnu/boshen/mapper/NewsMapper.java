@@ -53,4 +53,45 @@ public interface NewsMapper {
     @Select("select * from news where title like #{title} limit #{pageStart},#{quantity}")
     public List<News> findByPage(@Param("title") String title ,@Param("pageStart") int pageStart,
                                  @Param("quantity") int quantity);
-}
+
+
+    /**
+     * 查询前i条新闻
+     * @param i
+     * @return
+     */
+    @Select("select * from news limit 0,#{i}")
+    public List<News> findLimit(Integer i);
+
+    /**
+     * 查询所有新闻
+     * @return
+     */
+    @Select("select * from news")
+    public List<News> findAll();
+
+    /**
+     * 用类别id查询前i个新闻
+     * @param categoryId
+     * @param i
+     * @return
+     */
+    @Select("select * from news where category_id = #{categoryId} limit 0,#{i}")
+    public List<News> findByCategoryId(@Param("categoryId") int categoryId,@Param("i") int i);
+
+    /**
+     * 查询最热的新闻前i 个新闻
+     * @param i
+     * @return
+     */
+    @Select("select * from news order by comment_quantity desc limit 0,#{i}")
+    public List<News> findHotest(int i);
+
+    /**
+     * 查询最新的前i个新闻
+     * @param i
+     * @return
+     */
+    @Select("select * from news order by create_time desc limit 0,#{i}")
+    public List<News> findNewest(int i);
+ }

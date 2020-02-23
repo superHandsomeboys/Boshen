@@ -1,7 +1,9 @@
 package com.gpnu.boshen.service;
 
+import com.gpnu.boshen.dto.NewsDTO;
 import com.gpnu.boshen.dto.NewsInfo;
 import com.gpnu.boshen.entity.News;
+import com.gpnu.boshen.vo.NewsIndexVO;
 import com.gpnu.boshen.vo.ResultVo;
 import com.gpnu.boshen.vo.SimpleNewsVO;
 import org.omg.PortableInterceptor.INACTIVE;
@@ -42,4 +44,10 @@ public interface NewsService {
 
     //查找最新的前i个新闻
     public List<SimpleNewsVO> findNewest(int i);
+
+    //从下标start开始，查找个quantity个新闻，封装NewsDTO中
+    public List<NewsDTO> findNewsDTOLimit(int start,int quantity);
+
+    //根据categoryId,从下标start开始，查找个quantity个新闻，封装NewsDTO中
+    public List<NewsDTO> findByCategoryId02(int categoryId,int start ,int quantity);
 }

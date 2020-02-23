@@ -1,5 +1,7 @@
 package com.gpnu.boshen.controller;
 
+import com.gpnu.boshen.dto.NewsDTO;
+import com.gpnu.boshen.dto.NewsIndexDTO;
 import com.gpnu.boshen.dto.NewsInfo;
 import com.gpnu.boshen.dynamic.Data;
 import com.gpnu.boshen.entity.News;
@@ -7,14 +9,15 @@ import com.gpnu.boshen.entity.NewsCategory;
 import com.gpnu.boshen.enums.NewsStateEnum;
 import com.gpnu.boshen.service.NewsCategoryService;
 import com.gpnu.boshen.service.NewsService;
-import com.gpnu.boshen.vo.NewsInfornationVO;
-import com.gpnu.boshen.vo.ResultVo;
-import com.gpnu.boshen.vo.SimpleNewsVO;
+import com.gpnu.boshen.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class NewsController {
@@ -23,6 +26,7 @@ public class NewsController {
     NewsService newsService;
     @Autowired
     NewsCategoryService newsCategoryService;
+
 
 //        测试addNews，通过file.html
 //    @PostMapping("/addNews")
@@ -39,8 +43,6 @@ public class NewsController {
     /**
      * 添加新闻
      *
-     * @param newsInfo
-     * @return
      */
     @PostMapping("/news")
     public ResultVo addNews(NewsInfo newsInfo) {
@@ -54,8 +56,6 @@ public class NewsController {
     /**
      * 删除新闻
      *
-     * @param newsId
-     * @return
      */
     @DeleteMapping("/news/{id}")
     public ResultVo deleteNews(@PathVariable("id") Integer newsId) {
@@ -68,8 +68,6 @@ public class NewsController {
     /**
      * 根据newsid查询新闻详情页的所有数据
      *
-     * @param newsId
-     * @return
      */
     @GetMapping("/news/newsId/{id}")
     public ResultVo findDetailedNewsVOByNewsId(@PathVariable("id") Integer newsId) {
@@ -82,8 +80,6 @@ public class NewsController {
     /**
      * 根据title模糊查询news（不分页）
      *
-     * @param title
-     * @return
      */
     @GetMapping("/news/title/{title}")
     public ResultVo findNewsByTitle(@PathVariable("title") String title) {
@@ -98,8 +94,6 @@ public class NewsController {
     /**
      * 根据authorid查询news
      *
-     * @param authorId
-     * @return
      */
     @GetMapping("/news/authorId/{id}")
     public ResultVo findNewsByAuthor(@PathVariable("id") Integer authorId) {
@@ -212,12 +206,129 @@ public class NewsController {
         return new ResultVo(NewsStateEnum.SUCCESS, n);
     }
 
-    //首页渲染
-    //1.get->查询所有首页轮播图（url）
+
+
+
+
     //2.查6个新闻（newsIndexVO,category,）
-    //3.查4个类别，每个类别1个（newsIndexVO,newsIndexDTO）,5个（newsIndexVO,author）
-    //4.随便查6个新闻,前2个（newsIndexVO,newsIndexDTO)，后4个（newsIndexVO,author）
-    //5.查5个用户对公司的评价
-    //6.查公司简介
-    //7.用公司的consultindexID查
+    @GetMapping("/news/indexData01")
+    public ResultVo findNewsToIndex01(){
+        List<NewsDTO> newsDTOList = newsService.findNewsDTOLimit(0,6);
+        List<NewsIndexVO> newsIndexVOList = new ArrayList<NewsIndexVO>();
+        for (NewsDTO newsDTO : newsDTOList){
+            NewsIndexVO newsIndexVO = new NewsIndexVO();
+            //1.放category
+            Map<String,String> map = new HashMap<>();
+            map.put("category",newsDTO.getCategory().getNewsCategoryName());
+            newsIndexVO.setData(map);
+            //2.封装非Object的数据
+            newsIndexVO.setTitle(newsDTO.getTitle());
+            newsIndexVO.setCreateTime(newsDTO.getCreateTime());
+            newsIndexVO.setImageUrl(newsDTO.getImageUrl());
+            newsIndexVO.setNewsId(newsDTO.getNewsId());
+            //3.加入list
+            newsIndexVOList.add(newsIndexVO);
+        }
+        //再一次封装，经过NewsDTO,NewsIndexVO,ResultVo，3次封装
+        return new ResultVo(NewsStateEnum.SUCCESS,newsIndexVOList);
+    }
+
+    //4.1查前2个新闻（newsIndexVO,newsIndexDTO)，
+    @GetMapping("/news/indexData02")
+    public ResultVo findNewsToIndex02(){
+        List<NewsDTO> newsDTOList = newsService.findNewsDTOLimit(0,2);
+        List<NewsIndexVO> newsIndexVOList = new ArrayList<NewsIndexVO>();
+        for (NewsDTO newsDTO : newsDTOList){
+            NewsIndexVO newsIndexVO = new NewsIndexVO();
+            //1.封装newsIndexDTO进data
+            NewsIndexDTO newsIndexDTO = new NewsIndexDTO();
+            newsIndexDTO.setAuthor(newsDTO.getAuthor().getAvatar());
+            newsIndexDTO.setCategory(newsDTO.getCategory().getNewsCategoryName());
+            newsIndexDTO.setIntroduce(newsDTO.getIntroduce());
+            newsIndexVO.setData(newsIndexDTO);
+            //2.封装非object数据
+            newsIndexVO.setTitle(newsDTO.getTitle());
+            newsIndexVO.setCreateTime(newsDTO.getCreateTime());
+            newsIndexVO.setImageUrl(newsDTO.getImageUrl());
+            newsIndexVO.setNewsId(newsDTO.getNewsId());
+            //3.加入list
+            newsIndexVOList.add(newsIndexVO);
+        }
+        return new ResultVo(NewsStateEnum.SUCCESS,newsIndexVOList);
+    }
+
+    //4.2查第二个开始后4个新闻（newsIndexVO,author）
+    @GetMapping("/news/indexData03")
+    public ResultVo findNewToIndex03(){
+        List<NewsDTO> newsDTOList = newsService.findNewsDTOLimit(2,4);
+        List<NewsIndexVO> newsIndexVOList = new ArrayList<NewsIndexVO>();
+        for (NewsDTO newsDTO : newsDTOList){
+            NewsIndexVO newsIndexVO = new NewsIndexVO();
+            //1.放category
+            Map<String,String> map = new HashMap<>();
+            map.put("author",newsDTO.getAuthor().getAvatar());
+            newsIndexVO.setData(map);
+            //2.封装非Object的数据
+            newsIndexVO.setTitle(newsDTO.getTitle());
+            newsIndexVO.setCreateTime(newsDTO.getCreateTime());
+            newsIndexVO.setImageUrl(newsDTO.getImageUrl());
+            newsIndexVO.setNewsId(newsDTO.getNewsId());
+            //3.加入list
+            newsIndexVOList.add(newsIndexVO);
+        }
+        //再一次封装，经过NewsDTO,NewsIndexVO,ResultVo，3次封装
+        return new ResultVo(NewsStateEnum.SUCCESS,newsIndexVOList);
+    }
+
+    /**
+     * 查4个类别
+     * 每个类别1个（newsIndexVO,newsIndexDTO）,5个（newsIndexVO,author）
+     * 封装进resultVO.data的object↓
+     * List<NewsIndex04VO>，(category,newsIndexVO(newsIndexDTO),List<newsIndexVO(author)> )
+     */
+    @GetMapping("/news/indexData04")
+    public ResultVo findNewToIndex04(){
+        //1.查表中前4个新闻类别
+        List<NewsCategory> newsCategoryList = newsCategoryService.findLimit(4);
+        List<NewsIndex04VO> newsIndex04VOList = new ArrayList<NewsIndex04VO>();
+        //2.用每个新闻类别id查第一个新闻，放进左新闻
+        for (NewsCategory newsCategory : newsCategoryList){
+             List<NewsDTO> newsDTOList = newsService.findByCategoryId02(newsCategory.getNewsCategoryId(),0,6);
+             NewsIndex04VO newsIndex04VO = new NewsIndex04VO();
+            //一.封装newsIndex04VO.category
+             newsIndex04VO.setCategory(newsCategory.getNewsCategoryName());
+             int i =1;
+             List<NewsIndexVO> newsIndexVOList = new ArrayList<NewsIndexVO>();
+             for (NewsDTO newsDTO : newsDTOList){
+                 //封装newsIndex04VO.leftNews和rightNewsList
+                 NewsIndexVO newsIndexVO = new NewsIndexVO();
+                 newsIndexVO.setNewsId(newsDTO.getNewsId());
+                 newsIndexVO.setImageUrl(newsDTO.getImageUrl());
+                 newsIndexVO.setTitle(newsDTO.getTitle());
+                 newsIndexVO.setCreateTime(newsDTO.getCreateTime());
+                 if (i==1){
+                     //3.1封装newsIndex04VO.leftNews.NewsIndexDTO.
+                     NewsIndexDTO newsIndexDTO = new NewsIndexDTO();
+                     newsIndexDTO.setIntroduce(newsDTO.getIntroduce());
+                     newsIndexDTO.setCategory(newsDTO.getCategory().getNewsCategoryName());
+                     newsIndexDTO.setAuthor(newsDTO.getAuthor().getAvatar());
+                     newsIndexVO.setData(newsIndexDTO);
+                     //二装newsIndex04VO.LeftNews
+                     newsIndex04VO.setLeftNews(newsIndexVO);
+                 }else{
+                     //3.2封装newsIndex04VO.rightNewsList
+                     Map<String,String> map = new HashMap<>();
+                     map.put("author",newsDTO.getAuthor().getAvatar());
+                     newsIndexVO.setData(map);
+                     newsIndexVOList.add(newsIndexVO);
+                 }
+                 i++;
+             }
+             //三装newsIndex04VO.RightNewsList
+            newsIndex04VO.setRightNewsList(newsIndexVOList);
+             //四装newsIndex04VOList
+            newsIndex04VOList.add(newsIndex04VO);
+        }
+        return new ResultVo(NewsStateEnum.SUCCESS,newsIndex04VOList);
+    }
 }

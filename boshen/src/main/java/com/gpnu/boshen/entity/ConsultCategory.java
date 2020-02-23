@@ -16,4 +16,6 @@ public class ConsultCategory implements Serializable {
     private Integer consultCategoryId;
 
     private String consultCategoryName;
+
+    private String consultCategoryIntroduce;
 }

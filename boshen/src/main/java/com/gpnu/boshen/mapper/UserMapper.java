@@ -27,8 +27,8 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    @Insert("insert into user(user_name,password,mail,phone,create_time,avatar,user_type) values(#{userName}," +
-            "#{password},#{mail},#{phone},#{createTime},#{avatar},#{userType})")
+    @Insert("insert into user(user_name,password,mail,phone,create_time,avatar,user_type,introduce) values(#{userName}," +
+            "#{password},#{mail},#{phone},#{createTime},#{avatar},#{userType},#{introduce})")
     int addUser(User user);
 
     /**

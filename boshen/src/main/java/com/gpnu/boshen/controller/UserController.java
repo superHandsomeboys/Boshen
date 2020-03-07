@@ -8,6 +8,7 @@ import com.gpnu.boshen.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +45,9 @@ public class UserController {
             return new ResultVo(UserStateEnum.FAIL_NULL_PARAM);
         }
         ResultVo resultVo =userService.login(user);
+        if (resultVo.getData() == null){    //密码错，或邮箱错
+            return resultVo;
+        }
         User user1 = (User) resultVo.getData(); //从resultVo中拿取userId
         model.addAttribute("userId",user1.getUserId()); //放到session中
         resultVo.setData(null); //再制空
@@ -73,11 +77,12 @@ public class UserController {
      * @return
      */
     @PutMapping("/user")
-    public ResultVo updateUser(@RequestBody User user){
+    public ResultVo updateUser(@RequestBody User user,Model model){
         if (user.getPhone() == null || user.getMail() == null || user.getUserName() == null
-                || user.getPassword() == null ){
+                || user.getPassword() == null || user.getIntroduce() == null){
             return new ResultVo(UserStateEnum.FAIL_NULL_PARAM);
         }
+        user.setUserId( (Integer) model.getAttribute("userId"));
         ResultVo resultVo = userService.updateUser(user);
         return resultVo;
     }
@@ -88,10 +93,11 @@ public class UserController {
      * @return
      */
     @PutMapping("/user/userType")
-    public ResultVo updateUserType(@RequestBody User user){
-        if (user.getUserId() == null || user.getUserType() == null){
+    public ResultVo updateUserType(@RequestBody User user,Model model){
+        if ( user.getUserType() == null){
             return new ResultVo(UserStateEnum.FAIL_NULL_PARAM);
         }
+        user.setUserId( (Integer) model.getAttribute("userId"));
         return userService.updateUser(user);
     }
 
@@ -100,10 +106,11 @@ public class UserController {
      *  设置头像，默认头像,user
      */
     @PutMapping("/user/avatar")
-    public ResultVo updateAvatar(@RequestBody UserAvatarInfo userAvatarInfo){
-        if (userAvatarInfo.getAvatar() == null || userAvatarInfo.getUserId()==null){
+    public ResultVo updateAvatar(@RequestBody UserAvatarInfo userAvatarInfo,Model model){
+        if (userAvatarInfo.getAvatar() == null ){
             return new ResultVo(UserStateEnum.FAIL_NULL_PARAM);
         }
+        userAvatarInfo.setUserId( (Integer) model.getAttribute("userId"));
         return userService.updateAvatar(userAvatarInfo);
     }
 

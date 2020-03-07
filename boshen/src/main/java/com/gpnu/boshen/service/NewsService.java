@@ -4,6 +4,7 @@ import com.gpnu.boshen.dto.NewsDTO;
 import com.gpnu.boshen.dto.NewsInfo;
 import com.gpnu.boshen.entity.News;
 import com.gpnu.boshen.vo.NewsIndexVO;
+import com.gpnu.boshen.vo.PublicNews;
 import com.gpnu.boshen.vo.ResultVo;
 import com.gpnu.boshen.vo.SimpleNewsVO;
 import org.omg.PortableInterceptor.INACTIVE;
@@ -21,8 +22,11 @@ public interface NewsService {
     //查询新闻，通过newsid,作者id,类型id，是否为轮播图，标题的模糊化，
     public List<News> findByNews(News news);
 
-    //分页查询
-    public ResultVo findByPage(String title,int pageStart,int quantity);
+    //条件，分页查询
+    public List<News> findByPageTitle(String title,int page);
+
+    //条件页数查询
+    public int findPageQuantityByTitle(String title);
 
     //设置轮播图
     public ResultVo updateIsSlider(News news);
@@ -50,4 +54,10 @@ public interface NewsService {
 
     //根据categoryId,从下标start开始，查找个quantity个新闻，封装NewsDTO中
     public List<NewsDTO> findByCategoryId02(int categoryId,int start ,int quantity);
+
+    //查询前4个新闻类别，再每个类别查询3个新闻
+    public List<PublicNews> findPublicNews();
+
+    //用newsid查newsdto
+    public NewsDTO findNewsByNewsId(int newsId);
 }

@@ -30,6 +30,9 @@ public class UserDS {
                 if (user.getUserType() != null){
                     SET("user_Type = #{userType}");
                 }
+                if (user.getIntroduce() != null){
+                    SET("introduce=#{introduce}");
+                }
                 WHERE("user_id = #{userId}");
             }
         }.toString();

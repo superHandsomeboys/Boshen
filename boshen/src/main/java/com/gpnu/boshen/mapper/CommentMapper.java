@@ -31,4 +31,7 @@ public interface CommentMapper {
      */
     @SelectProvider(type = CommentDS.class,method = "select")
     public List<Comment> findById(Comment comment);
+
+    @Select("select * from comment")
+    public List<Comment> findAll();
 }

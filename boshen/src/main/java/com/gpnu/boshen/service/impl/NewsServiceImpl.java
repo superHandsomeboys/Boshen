@@ -1,7 +1,9 @@
 package com.gpnu.boshen.service.impl;
 
 import com.gpnu.boshen.dto.FileInfo;
+import com.gpnu.boshen.dto.NewsDTO;
 import com.gpnu.boshen.dto.NewsInfo;
+import com.gpnu.boshen.dynamic.Data;
 import com.gpnu.boshen.entity.*;
 import com.gpnu.boshen.enums.NewsStateEnum;
 import com.gpnu.boshen.mapper.*;
@@ -9,14 +11,13 @@ import com.gpnu.boshen.service.NewsService;
 import com.gpnu.boshen.util.FileUploadUtil;
 import com.gpnu.boshen.vo.*;
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -38,8 +39,6 @@ public class NewsServiceImpl implements NewsService{
         File dest = new File("");  //外放是给catch用
         try {
             FileInfo fileInfo = FileUploadUtil.image(newsInfo.getAuthorId(),newsInfo.getImage());
-            //测试
-            System.out.println("文件上传了"+fileInfo);
             if (fileInfo == null){
                 return new ResultVo(NewsStateEnum.FAIL_NOT_IMAGE);
             }
@@ -52,21 +51,19 @@ public class NewsServiceImpl implements NewsService{
             news.setAuthorId(newsInfo.getAuthorId());
             news.setTitle(newsInfo.getTitle());
             news.setImageUrl(fileInfo.getBackPath());
+            news.setCommentQuantity(0);
+            news.setIntroduce(newsInfo.getIntroduce());
             news.setCreateTime(new Date());
             //4.保存文章，返回articleId,set
             Article article = new Article();
             article.setContent(newsInfo.getArticle());
             articleMapper.addArticle(article);
-            //测试
-            System.out.println("文章添加后");
             news.setArticleId(article.getArticleId());
             //5.addNews
             int result = newsMapper.addNews(news);
             if(result <= 0){
 
             }
-            //测试
-            System.out.println("新闻添加后");
         }catch(Exception e){
             dest.delete(); //保持事务一致性
             throw new RuntimeException("新闻添加失败"+e.getMessage());
@@ -81,21 +78,32 @@ public class NewsServiceImpl implements NewsService{
         News news = new News();
         news.setNewsId(newsId);
         news = newsMapper.findByNews(news).get(0);
-        System.out.println(news);
-        File image = new File(news.getImageUrl());
+        File image = new File(Data.UPLOAD_IMAGE_PATH + news.getImageUrl());
 
         try{    //因为外键关系，新闻最先删，又图片一旦删了就不能恢复，所以图片最后
+            //删除评论
+            Comment comment = new Comment();
+            comment.setNewsId(newsId);
+            //所有父评论
+            for (Comment c : commentMapper.findById(comment)){
+                //删除子评论
+                Comment c2 = new Comment();
+                c2.setParentCommentId(c.getCommentId());
+                for (Comment c3 : commentMapper.findById(c2)){
+                    commentMapper.deletComment(c3.getCommentId());
+                }
+                commentMapper.deletComment(c.getCommentId());
+            }
             //删新闻
             int resultDN  = newsMapper.deleteNews(newsId);
             //删内容
             int resultDA = articleMapper.deleteArticle(news.getArticleId());
             //删图片
             image.delete();
+            return new ResultVo(NewsStateEnum.SUCCESS);
         }catch(Exception e){
             throw new RuntimeException("删除新闻错误"+e.getMessage());
         }
-
-        return new ResultVo(NewsStateEnum.SUCCESS);
     }
 
 
@@ -110,12 +118,22 @@ public class NewsServiceImpl implements NewsService{
 
 
     @Override
-    public ResultVo findByPage(String title, int pageStart, int quantity) {
+    public List<News> findByPageTitle(String title, int page) {
         title = "%"+title+"%";  //模糊查询
-        List<News> list = newsMapper.findByPage(title,pageStart,quantity);
-        ResultVo resultVo = new ResultVo(NewsStateEnum.SUCCESS);
-        resultVo.setData(list);
-        return resultVo;
+        int start = (page-1) * Data.QUANTITY_IN_PAGE;
+        return newsMapper.findByPage(title,start,Data.QUANTITY_IN_PAGE);
+    }
+
+    @Override
+    public int findPageQuantityByTitle(String title) {
+        String t = "%" + title + "%";
+        int size = newsMapper.findByTitle(t).size();
+        if (size == 0){
+            return 0;
+        }else if (size % Data.QUANTITY_IN_PAGE == 0){   //刚好整页
+            return size / Data.QUANTITY_IN_PAGE;
+        }
+        return size / Data.QUANTITY_IN_PAGE +1;
     }
 
     @Override
@@ -139,7 +157,7 @@ public class NewsServiceImpl implements NewsService{
         User user = userMapper.findByUserId(news1.getAuthorId());
         SimpleUserVO suv = new SimpleUserVO();
         suv.setAvatarUrl(user.getAvatar());
-        suv.setIntroduce(user.getInroduce());
+        suv.setIntroduce(user.getIntroduce());
         suv.setUserName(user.getUserName());
         dnv.setAuthor(suv);
         //3.用categoryId获取categoryName
@@ -253,8 +271,7 @@ public class NewsServiceImpl implements NewsService{
         //把数据封装到simplenewsvolist
         for (News news: newsList){
             SimpleNewsVO simpleNewsVO = new SimpleNewsVO();
-            simpleNewsVO.setNewsId(news.getNewsId());
-            simpleNewsVO.setTitle(news.getTitle());
+            BeanUtils.copyProperties(news,simpleNewsVO);
             simpleNewsVOList.add(simpleNewsVO);
         }
         return simpleNewsVOList;
@@ -329,4 +346,98 @@ public class NewsServiceImpl implements NewsService{
     }
 
 
+
+    @Override
+    public List<NewsDTO> findNewsDTOLimit(int start, int quantity) {
+        return toDTOs(newsMapper.findLimit01(start,quantity));
+    }
+
+    @Override
+    public List<NewsDTO> findByCategoryId02(int categoryId, int start, int quantity) {
+        return toDTOs(newsMapper.findByCategoryId01(categoryId,start,quantity));
+    }
+
+    @Override
+    public List<PublicNews> findPublicNews() {
+        //3.List<PublicNews>, (category,List<NewsIndexVO(author)> )
+        //查询4个类别
+        List<PublicNews> publicNewsList = new ArrayList<PublicNews>();
+        for (NewsCategory newsCategory : newsCategoryMapper.findLimit(4)){
+            PublicNews publicNews = new PublicNews();
+            //1.装category
+            publicNews.setCategory(newsCategory.getNewsCategoryName());
+            //2.根据每个类别查3个新闻
+            List<NewsDTO> newsDTOList = toDTOs(newsMapper.findByCategoryId01(newsCategory.getNewsCategoryId(),0,3));
+            List<NewsIndexVO> newsIndexVOList = new ArrayList<NewsIndexVO>();
+            for (NewsDTO newsDTO : newsDTOList){
+                NewsIndexVO newsIndexVO = new NewsIndexVO();
+                newsIndexVO.setCreateTime(newsDTO.getCreateTime());
+                newsIndexVO.setTitle(newsDTO.getTitle());
+                newsIndexVO.setImageUrl(newsDTO.getImageUrl());
+                newsIndexVO.setNewsId(newsDTO.getNewsId());
+                Map<String,String> map = new HashMap<>();
+                map.put("author",newsDTO.getAuthor().getUserName());
+                newsIndexVO.setData(map);
+                newsIndexVOList.add(newsIndexVO);
+            }
+            //2.装List<NewsIndexVO>
+            publicNews.setNewsIndexVOs(newsIndexVOList);
+            publicNewsList.add(publicNews);
+        }
+        return publicNewsList;
+    }
+
+    @Override
+    public NewsDTO findNewsByNewsId(int newsId) {
+        News news = new News();
+        news.setNewsId(newsId);
+        return toDTO(newsMapper.findByNews(news).get(0));
+    }
+
+
+    /**
+     * 把List<News>News转为NewsDTO
+     */
+    public List<NewsDTO> toDTOs(List<News> newsList){
+        List<NewsDTO> newsDTOList = new ArrayList<NewsDTO>();
+        for (News news : newsList){
+            NewsDTO newsDTO = new NewsDTO();
+            newsDTO.setTitle(news.getTitle());
+            newsDTO.setNewsId(news.getNewsId());
+            newsDTO.setIsSlider(news.getIsSlider());
+            newsDTO.setIntroduce(news.getIntroduce());
+            newsDTO.setImageUrl(news.getImageUrl());
+            newsDTO.setCreateTime(news.getCreateTime());
+            newsDTO.setCommentQuantity(news.getCommentQuantity());
+            //2.封装article
+            newsDTO.setArticle(articleMapper.findArticleById(news.getArticleId()));
+            //3.封装author
+            newsDTO.setAuthor(userMapper.findByUserId(news.getAuthorId()));
+            //4.封装category
+            newsDTO.setCategory(newsCategoryMapper.findById(news.getCategoryId()));
+            newsDTOList.add(newsDTO);
+        }
+        return newsDTOList;
+    }
+
+    /**
+     * 把News转newsDTO
+     */
+    public NewsDTO toDTO(News news){
+        NewsDTO newsDTO = new NewsDTO();
+        newsDTO.setTitle(news.getTitle());
+        newsDTO.setNewsId(news.getNewsId());
+        newsDTO.setIsSlider(news.getIsSlider());
+        newsDTO.setIntroduce(news.getIntroduce());
+        newsDTO.setImageUrl(news.getImageUrl());
+        newsDTO.setCreateTime(news.getCreateTime());
+        newsDTO.setCommentQuantity(news.getCommentQuantity());
+        //2.封装article
+        newsDTO.setArticle(articleMapper.findArticleById(news.getArticleId()));
+        //3.封装author
+        newsDTO.setAuthor(userMapper.findByUserId(news.getAuthorId()));
+        //4.封装category
+        newsDTO.setCategory(newsCategoryMapper.findById(news.getCategoryId()));
+        return newsDTO;
+    }
 }

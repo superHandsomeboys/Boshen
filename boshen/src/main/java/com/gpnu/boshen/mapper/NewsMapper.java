@@ -14,8 +14,8 @@ public interface NewsMapper {
      * @param news
      * @return
      */
-    @Insert("insert into news (author_id,title,image_url,article_id,category_id,create_time,is_slider)" +
-            "values (#{authorId},#{title},#{imageUrl},#{articleId},#{categoryId},#{createTime},#{isSlider})")
+    @Insert("insert into news (author_id,title,image_url,article_id,category_id,create_time,is_slider,introduce,comment_quantity)" +
+            "values (#{authorId},#{title},#{imageUrl},#{articleId},#{categoryId},#{createTime},#{isSlider},#{introduce},#{commentQuantity})")
     public int addNews(News news);
 
     /**
@@ -54,6 +54,8 @@ public interface NewsMapper {
     public List<News> findByPage(@Param("title") String title ,@Param("pageStart") int pageStart,
                                  @Param("quantity") int quantity);
 
+    @Select("select * from news where title like #{title}")
+    public List<News> findByTitle(String title);
 
     /**
      * 查询前i条新闻
@@ -94,4 +96,19 @@ public interface NewsMapper {
      */
     @Select("select * from news order by create_time desc limit 0,#{i}")
     public List<News> findNewest(int i);
- }
+
+    @Select("select * from news limit #{start},#{quantity}")
+    public List<News> findLimit01(@Param("start") int start ,@Param("quantity") int quantity);
+
+    @Select("select * from news where category_id = #{categoryId} limit #{start},#{quantity}")
+    public List<News> findByCategoryId01(@Param("categoryId") int categoryId,@Param("start") int start,@Param("quantity") int quantity);
+
+    /**
+     * 更新新闻
+     */
+    @Update("update news set author_id=#{authorId},title = #{title},image_url = #{imageUrl}," +
+            "article_id = #{articleId},category_id = #{categoryId},create_time = #{createTime}," +
+            "is_slider = #{isSlider},introduce = #{introduce},comment_quantity = #{commentQuantity} " +
+            "where news_id = #{newsId}")
+    public int updateNews(News news);
+}

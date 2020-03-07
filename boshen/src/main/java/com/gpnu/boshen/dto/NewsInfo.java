@@ -24,4 +24,7 @@ public class NewsInfo {
     //新闻类别
     private Integer categoryId;
 
+    //新闻简介
+    private String introduce;
+
 }

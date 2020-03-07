@@ -1,13 +1,23 @@
 package com.gpnu.boshen.controller;
 
+import com.gpnu.boshen.dto.CommentDTO;
 import com.gpnu.boshen.entity.Comment;
 import com.gpnu.boshen.enums.CommentStateEnum;
+import com.gpnu.boshen.mapper.dynamicSql.CommentDS;
 import com.gpnu.boshen.service.CommentService;
 import com.gpnu.boshen.vo.ResultVo;
+import com.gpnu.boshen.vo.SimpleCommentVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.rmi.log.LogInputStream;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@SessionAttributes(value = {"userId"})
 @RestController
 public class CommentController {
 
@@ -15,28 +25,83 @@ public class CommentController {
     CommentService commentService;
 
     /**
-     * 添加评论
+     * 添加新闻评论
      * @return
      */
-    @PostMapping("/comment")
-    public ResultVo addComment(@RequestBody Comment comment){
-        if (comment.getAuthorId() == null || comment.getContent() == null){
+    @PostMapping("/comment/news")
+    public ResultVo addNewsComment(@RequestBody Comment comment, Model model){
+        if (comment.getNewsId() == null || comment.getContent() == null){
             return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
         }
+        int userId = (Integer)model.getAttribute("userId");
+        comment.setAuthorId(userId);
         return commentService.addComment(comment);
     }
 
     /**
-     * 删除评论
+     * 添加科技评论
+     * @return
+     */
+    @PostMapping("/comment/science")
+    public ResultVo addScienceComment(@RequestBody Comment comment,Model model){
+        if (comment.getContent() == null || comment.getScienceId() == null ){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        int userId = (Integer)model.getAttribute("userId");
+        comment.setAuthorId(userId);
+        return commentService.addComment(comment);
+    }
+
+    /**
+     * 添加公司的评论
+     */
+    @PostMapping("/comment/company")
+    public ResultVo addCompanyComment(@RequestBody Comment comment,Model model){
+        if (comment.getContent() == null){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        int userId = (Integer)model.getAttribute("userId");
+        comment.setAuthorId(userId);
+        comment.setCompanyId(1);
+        return commentService.addComment(comment);
+    }
+
+    /**
+     * 添加子的评论
+     */
+    @PostMapping("/comment/son")
+    public ResultVo addSonComment(@RequestBody Comment comment,Model model){
+        if (comment.getContent() == null || comment.getParentCommentId() == null ){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        int userId = (Integer)model.getAttribute("userId");
+        comment.setAuthorId(userId);
+        return commentService.addComment(comment);
+    }
+
+
+    /**
+     * 删除子评论
      * @param commentId
      * @return
      */
-    @DeleteMapping("/comment/{id}")
-    public ResultVo deleteComment(@PathVariable("id") Integer commentId){
+    @DeleteMapping("/comment/son/{id}")
+    public ResultVo deleteSonComment(@PathVariable("id") Integer commentId){
         if (commentId == null){
             return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
         }
-        return commentService.deleteComment(commentId);
+        return commentService.deleteSonComment(commentId);
+    }
+
+    /**
+     * 删除父评论,同时删除父评论下的子评论
+     */
+    @DeleteMapping("/comment/parent/{id}")
+    public ResultVo deleteParentComment(@PathVariable("id") Integer commentId){
+        if (commentId == null){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        return commentService.deleteParentComment(commentId);
     }
 
     /**
@@ -114,19 +179,43 @@ public class CommentController {
         return commentService.findById(comment);
     }
 
+
+    //5.查5个用户对公司的评价
+    @GetMapping("/comment/company")
+    public ResultVo findCompanyComment(){
+        Comment comment = new Comment();
+        comment.setCompanyId(1);
+        List<CommentDTO> commentDTOS = commentService.findComment(comment);
+        List<SimpleCommentVO> simpleCommentVOS = new ArrayList<SimpleCommentVO>();
+        for (CommentDTO commentDTO : commentDTOS){
+            SimpleCommentVO simpleCommentVO = new SimpleCommentVO();
+            BeanUtils.copyProperties(commentDTO,simpleCommentVO);
+            simpleCommentVOS.add(simpleCommentVO);
+        }
+        return new ResultVo(CommentStateEnum.SUCCESS,simpleCommentVOS);
+
+    }
+
     /**
-     * 根据科技前沿的scienceid查询评论
-     * @param scienceId
-     * @return
+     * 查询科技文章的所有评论
      */
     @GetMapping("/comment/scienceId/{id}")
-    public ResultVo findCommentByScience(@PathVariable("id")Integer scienceId){
-        if (scienceId == null){
-            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
-        }
+    public ResultVo findScienceComments(@PathVariable("id") Integer scienceId){
         Comment comment = new Comment();
         comment.setScienceId(scienceId);
-        return commentService.findById(comment);
+        return new ResultVo(CommentStateEnum.SUCCESS,commentService.findComment(comment));
     }
+
+    /**
+     * 查所有评论
+     */
+    @GetMapping("/comment/list")
+    public ResultVo findScienceComments(){
+        return new ResultVo(CommentStateEnum.SUCCESS,commentService.findAll());
+
+    }
+
+
+
 
 }

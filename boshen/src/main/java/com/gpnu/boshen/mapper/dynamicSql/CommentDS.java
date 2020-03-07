@@ -23,7 +23,7 @@ public class CommentDS {
                 if (comment.getParentCommentId()!=null) {   //是评论的子评论
                     VALUES("parent_comment_id","#{parentCommentId}");
                 }
-                if (comment.getScienceId()!=null){
+                if (comment.getScienceId()!=null){  //科学文章
                     VALUES("science_id","#{scienceId}");
                 }
             }

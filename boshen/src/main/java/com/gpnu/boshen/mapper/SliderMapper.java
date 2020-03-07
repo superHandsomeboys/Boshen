@@ -21,7 +21,7 @@ public interface SliderMapper  {
      * @return
      */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into slider(name, type, url) values (#{name}, #{type}, #{uri})")
+    @Insert("insert into slider(name, type, uri) values (#{name}, #{type}, #{uri})")
     public int insertSlider(Slider slider);
 
     /**
@@ -32,4 +32,7 @@ public interface SliderMapper  {
     @Delete("delete from slider where id = #{sliderId}")
     public int deleteSlider(int sliderId);
 
+
+    @Select("select * from slider where id = #{id}")
+    public Slider findbyid(int id);
 }

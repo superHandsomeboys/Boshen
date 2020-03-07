@@ -28,7 +28,7 @@ public interface ConsultCategoryMapper {
      * @return
      */
     @Options(useGeneratedKeys = true, keyProperty = "consultCategoryId")
-    @Insert("insert into consult_category(consult_category_name) values (#{consultCategoryName})")
+    @Insert("insert into consult_category(consult_category_name,consult_category_introduce) values (#{consultCategoryName},#{consultCategoryIntroduce})")
     public int insert(ConsultCategory category);
 
     /**
@@ -36,7 +36,7 @@ public interface ConsultCategoryMapper {
      * @param category
      * @return
      */
-    @Update("update consult_category set consult_category_name = #{consultCategoryName} " +
+    @Update("update consult_category set consult_category_name = #{consultCategoryName}, consult_category_introduce = #{consultCategoryIntroduce}" +
             "where consult_category_id = #{consultCategoryId}")
     public int update(ConsultCategory category);
 
@@ -47,4 +47,11 @@ public interface ConsultCategoryMapper {
      */
     @Delete("delete from consult_category where consult_category_id = #{id}")
     public int delete(int id);
+
+    /**
+     * 查询有限的咨询类别
+     * @return
+     */
+    @Select("select * from consult_category limit #{start},#{quantity}")
+    public List<ConsultCategory> findAllLimit(@Param("start") int start,@Param("quantity") int quantity);
 }

@@ -14,7 +14,7 @@ public class User {
     private String phone;
     private String avatar;	//头像
     private Integer userType;  //(1是普通用户，2是公司发布文章员，3是超级管理员)
-    private String inroduce;
+    private String introduce;
     private Date createTime;
 
 }

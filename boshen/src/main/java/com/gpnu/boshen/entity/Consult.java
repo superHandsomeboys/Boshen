@@ -16,9 +16,9 @@ public class Consult implements Serializable {
 
     private Integer consultId;
 
-    private String title;
+    private String consultTitle;
 
     private Integer articleId;
 
-    private Integer consultCategoryId;
+    private Integer categoryId;
 }

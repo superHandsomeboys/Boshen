@@ -43,8 +43,9 @@ public class UserServiceImpl implements UserService {
         }
         //保存
         user.setCreateTime(new Date()); //比中国时间少8h
-        user.setUserType(0);    //默认普通用户
+        user.setUserType(1);    //默认普通用户
         user.setAvatar(Data.DEFAULT_AVATAR);
+        user.setIntroduce("亲，还没填个人介绍~");
         if (userMapper.addUser(user) > 0) {
             resultVo = new ResultVo(UserStateEnum.SUCCESS);
             return resultVo;
@@ -83,9 +84,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultVo userInfo(int userId) {
         User user = userMapper.findByUserId(userId);
-        resultVo = new ResultVo(UserStateEnum.SUCCESS);
-        resultVo.setData(user);
-        return resultVo;
+        if (user.getUserType() == 1){
+            //普通用户
+            return new ResultVo(UserStateEnum.ORDINARY_USER,user);
+        }else if (user.getUserType() == 2){
+            //公式员工
+            return new ResultVo(UserStateEnum.COMPANY_USER,user);
+        }else{
+            //超级管理员
+            return new ResultVo(UserStateEnum.ROOT_USER,user);
+        }
     }
 
     @Override
@@ -121,11 +129,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional      //没有删除之前的头像
     public ResultVo updateAvatar(UserAvatarInfo userAvatarInfo) {
         File file = new File("");   //用于catch
         try{
             int userId = userAvatarInfo.getUserId();
+            //1.删除旧头像
+            String oldAvatar = userMapper.findByUserId(userId).getAvatar();
+            if (oldAvatar != Data.DEFAULT_AVATAR);{     //如果是默认头像，不删除，否则删除
+                File dest =new File(Data.UPLOAD_IMAGE_PATH + oldAvatar);
+                dest.delete();
+            }
             //1.上传头像至本地
             FileInfo fileInfo = FileUploadUtil.image(userId, userAvatarInfo.getAvatar());
             if (fileInfo == null){

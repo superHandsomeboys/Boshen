@@ -6,11 +6,16 @@ import com.gpnu.boshen.dto.NewsInfo;
 import com.gpnu.boshen.dynamic.Data;
 import com.gpnu.boshen.entity.News;
 import com.gpnu.boshen.entity.NewsCategory;
+import com.gpnu.boshen.enums.ConsultStateEnum;
 import com.gpnu.boshen.enums.NewsStateEnum;
+import com.gpnu.boshen.enums.ScienceStatusEnum;
+import com.gpnu.boshen.mapper.NewsMapper;
 import com.gpnu.boshen.service.NewsCategoryService;
 import com.gpnu.boshen.service.NewsService;
 import com.gpnu.boshen.vo.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@SessionAttributes(value = {"userId"})
 @RestController
 public class NewsController {
 
@@ -26,17 +31,53 @@ public class NewsController {
     NewsService newsService;
     @Autowired
     NewsCategoryService newsCategoryService;
+    @Autowired
+    NewsMapper newsMapper;
 
 
 //        测试addNews，通过file.html
-//    @PostMapping("/addNews")
+//    @PostMapping("/addNews1")
 //    public ResultVo addNews(MultipartFile file){
 //        NewsInfo newsInfo = new NewsInfo();
-//        newsInfo.setArticle("没没没没没");
-//        newsInfo.setAuthorId(2);
-//        newsInfo.setCategoryId(6);
-//        newsInfo.setTitle("newt");
+//        newsInfo.setArticle("亚轩开玩笑地戏称自己什么诀窍，就是“天赋异禀”。 ");
+//        newsInfo.setAuthorId(1);
+//        newsInfo.setCategoryId(1);
+//        newsInfo.setTitle("娱乐圈情侣集体放糖");
 //        newsInfo.setImage(file);
+//        newsInfo.setIntroduce("简介");
+//        return newsService.addNews(newsInfo);
+//    }
+//    @PostMapping("/addNews2")
+//    public ResultVo addNews2(MultipartFile file){
+//        NewsInfo newsInfo = new NewsInfo();
+//        newsInfo.setArticle("我们可以为自己而活，活出自己最本真的样子，不刻意、不依附、不取悦，只做最精彩的自己。");
+//        newsInfo.setAuthorId(1);
+//        newsInfo.setCategoryId(2);
+//        newsInfo.setTitle("有多少人是喜欢且唯一喜欢");
+//        newsInfo.setImage(file);
+//        newsInfo.setIntroduce("简介");
+//        return newsService.addNews(newsInfo);
+//    }
+//    @PostMapping("/addNews3")
+//    public ResultVo addNews3(MultipartFile file){
+//        NewsInfo newsInfo = new NewsInfo();
+//        newsInfo.setArticle("韦伯说：“人是自我编织的意义之网的动物。”换句话就是，别太丧，你总得给自己留条活路。");
+//        newsInfo.setAuthorId(1);
+//        newsInfo.setCategoryId(3);
+//        newsInfo.setTitle("詹青云获得第六季奇葩说冠军");
+//        newsInfo.setImage(file);
+//        newsInfo.setIntroduce("简介");
+//        return newsService.addNews(newsInfo);
+//    }
+//    @PostMapping("/addNews4")
+//    public ResultVo addNews4(MultipartFile file){
+//        NewsInfo newsInfo = new NewsInfo();
+//        newsInfo.setArticle("不停地放下已经有的一切让环境去重塑你，这是成长的捷径。");
+//        newsInfo.setAuthorId(1);
+//        newsInfo.setCategoryId(4);
+//        newsInfo.setTitle("《奇葩说第六季》金句集锦");
+//        newsInfo.setImage(file);
+//        newsInfo.setIntroduce("简介");
 //        return newsService.addNews(newsInfo);
 //    }
 
@@ -45,12 +86,22 @@ public class NewsController {
      *
      */
     @PostMapping("/news")
-    public ResultVo addNews(NewsInfo newsInfo) {
+    public ResultVo addNews(@RequestBody NewsInfo newsInfo,Model model) {
         if (newsInfo.getImage() == null || newsInfo.getAuthorId() == null || newsInfo.getArticle() == null
                 || newsInfo.getCategoryId() == null || newsInfo.getTitle() == null) {
             return new ResultVo(NewsStateEnum.FAIL_NULL_PARAM);
         }
+        int userId = (Integer)model.getAttribute("userId");
+        newsInfo.setAuthorId(userId);
         return newsService.addNews(newsInfo);
+    }
+
+    /**
+     * 查询所有新闻
+     */
+    @GetMapping("/news")
+    public ResultVo findAll(){
+        return new ResultVo(NewsStateEnum.SUCCESS,newsMapper.findAll());
     }
 
     /**
@@ -64,6 +115,18 @@ public class NewsController {
         }
         return newsService.deleteNews(newsId);
     }
+
+    /**
+     * 根据newsid查news类
+     */
+    @GetMapping("/news/{id}")
+    public ResultVo findNewsByNewsId(@PathVariable("id") Integer newsId){
+        if (newsId == null) {
+            return new ResultVo(NewsStateEnum.FAIL_NULL_PARAM);
+        }
+        return new ResultVo(NewsStateEnum.SUCCESS,newsService.findNewsByNewsId(newsId));
+    }
+
 
     /**
      * 根据newsid查询新闻详情页的所有数据
@@ -95,13 +158,14 @@ public class NewsController {
      * 根据authorid查询news
      *
      */
-    @GetMapping("/news/authorId/{id}")
-    public ResultVo findNewsByAuthor(@PathVariable("id") Integer authorId) {
-        if (authorId == null) {
+    @GetMapping("/news/authorId")
+    public ResultVo findNewsByAuthor(Model model) {
+        Integer userId = (Integer)model.getAttribute("userId");
+        if (userId == null) {
             return new ResultVo(NewsStateEnum.FAIL_NULL_PARAM);
         }
         News news = new News();
-        news.setAuthorId(authorId);
+        news.setAuthorId(userId);
         return new ResultVo(NewsStateEnum.SUCCESS, newsService.findByNews(news));
     }
 
@@ -139,7 +203,7 @@ public class NewsController {
 
     /**
      * 有条件的分页查询
-     *
+     * 每页8个
      * @param title
      * @param page
      * @return
@@ -149,8 +213,10 @@ public class NewsController {
         if (title == null || page == null) {
             return new ResultVo(NewsStateEnum.FAIL_NULL_PARAM);
         }
-        int quantity = page + Data.PAGE;
-        return newsService.findByPage(title, page, quantity);
+        Map<String,Object> map = new HashMap<>();
+        map.put("news",newsService.findByPageTitle(title,page));
+        map.put("pageQuantity",newsService.findPageQuantityByTitle(title));
+        return new ResultVo(NewsStateEnum.SUCCESS,map);
     }
 
     /**
@@ -242,7 +308,7 @@ public class NewsController {
             NewsIndexVO newsIndexVO = new NewsIndexVO();
             //1.封装newsIndexDTO进data
             NewsIndexDTO newsIndexDTO = new NewsIndexDTO();
-            newsIndexDTO.setAuthor(newsDTO.getAuthor().getAvatar());
+            newsIndexDTO.setAuthor(newsDTO.getAuthor().getUserName());
             newsIndexDTO.setCategory(newsDTO.getCategory().getNewsCategoryName());
             newsIndexDTO.setIntroduce(newsDTO.getIntroduce());
             newsIndexVO.setData(newsIndexDTO);
@@ -266,7 +332,7 @@ public class NewsController {
             NewsIndexVO newsIndexVO = new NewsIndexVO();
             //1.放category
             Map<String,String> map = new HashMap<>();
-            map.put("author",newsDTO.getAuthor().getAvatar());
+            map.put("author",newsDTO.getAuthor().getUserName());
             newsIndexVO.setData(map);
             //2.封装非Object的数据
             newsIndexVO.setTitle(newsDTO.getTitle());
@@ -311,14 +377,14 @@ public class NewsController {
                      NewsIndexDTO newsIndexDTO = new NewsIndexDTO();
                      newsIndexDTO.setIntroduce(newsDTO.getIntroduce());
                      newsIndexDTO.setCategory(newsDTO.getCategory().getNewsCategoryName());
-                     newsIndexDTO.setAuthor(newsDTO.getAuthor().getAvatar());
+                     newsIndexDTO.setAuthor(newsDTO.getAuthor().getUserName());
                      newsIndexVO.setData(newsIndexDTO);
                      //二装newsIndex04VO.LeftNews
                      newsIndex04VO.setLeftNews(newsIndexVO);
                  }else{
                      //3.2封装newsIndex04VO.rightNewsList
                      Map<String,String> map = new HashMap<>();
-                     map.put("author",newsDTO.getAuthor().getAvatar());
+                     map.put("author",newsDTO.getAuthor().getUserName());
                      newsIndexVO.setData(map);
                      newsIndexVOList.add(newsIndexVO);
                  }
@@ -330,5 +396,16 @@ public class NewsController {
             newsIndex04VOList.add(newsIndex04VO);
         }
         return new ResultVo(NewsStateEnum.SUCCESS,newsIndex04VOList);
+    }
+
+
+    /**
+     * 上栏公共部分新闻资讯
+     * 4个类别，List<PublicNews>, (category,NewsIndexVO(author) )
+     *
+     */
+    @GetMapping("/news/public")
+    public ResultVo findPublicNewss(){
+        return new ResultVo(NewsStateEnum.SUCCESS,newsService.findPublicNews());
     }
 }

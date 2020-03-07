@@ -3,6 +3,7 @@ package com.gpnu.boshen.controller;
 import com.gpnu.boshen.entity.ConsultCategory;
 import com.gpnu.boshen.enums.CommentStateEnum;
 import com.gpnu.boshen.enums.ConsultCategoryStateEnum;
+import com.gpnu.boshen.enums.ConsultStateEnum;
 import com.gpnu.boshen.mapper.ConsultCategoryMapper;
 import com.gpnu.boshen.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,15 @@ public class ConsultCategoryController {
         consultCategoryMapper.delete(id);
         return new ResultVo(ConsultCategoryStateEnum.SUCCESS);
     }
+
+    /**
+     * 查询最多7个类别，id,name
+     */
+    @GetMapping("/consult/public")
+    public ResultVo findpublic(){
+        return new ResultVo(ConsultStateEnum.SUCCESS,consultCategoryMapper.findAllLimit(0,7));
+    }
+
+
+
 }

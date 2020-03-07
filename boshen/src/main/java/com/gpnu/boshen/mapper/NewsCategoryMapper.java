@@ -2,10 +2,7 @@ package com.gpnu.boshen.mapper;
 
 import com.gpnu.boshen.entity.News;
 import com.gpnu.boshen.entity.NewsCategory;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,6 +24,9 @@ public interface NewsCategoryMapper {
      */
     @Delete("delete from news_category where news_category_id=#{newsCategoryId}")
     public int deleteNewsCategory(Integer newsCategoryId);
+
+    @Update("update news_category set news_category_name = #{newsCategoryName} where news_category_id = #{newsCategoryId}")
+    public int updateNewsCategory(NewsCategory newsCategory);
 
     /**
      * 查找所有的新闻类别
@@ -60,4 +60,6 @@ public interface NewsCategoryMapper {
      */
     @Select("select * from news_category limit 0,#{i}")
     public List<NewsCategory> findLimit(int i);
+
+
 }

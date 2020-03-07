@@ -1,26 +1,61 @@
 package com.gpnu.boshen.mapper;
 
 import com.gpnu.boshen.entity.User;
+import com.gpnu.boshen.mapper.dynamicSql.UserDS;
 import org.apache.ibatis.annotations.*;
-
-import java.util.List;
 
 @Mapper
 public interface UserMapper {
+    /**
+     * 查看是否已有mail注册用户
+     * @param mail
+     * @return
+     */
+    @Select("select * from user where mail = #{mail}")
+    User findByMail(String mail);
 
-    @Select("select * from user where user_id = #{id}")
-    public User get(int id);
+    /**
+     * 查看是否已有phone注册用户
+     * @param phone
+     * @return
+     */
+    @Select("select * from user where phone = #{phone}")
+    User findByPhone(String phone);
 
-    @Select("select * from user")
-    public List<User> list();
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    @Insert("insert into user(user_name,password,mail,phone,create_time,avatar,user_type,introduce) values(#{userName}," +
+            "#{password},#{mail},#{phone},#{createTime},#{avatar},#{userType},#{introduce})")
+    int addUser(User user);
 
-    @Options(useGeneratedKeys = true, keyProperty = "user_id")
-    @Insert("insert into user (user_name, password, email, phone) values (#{user_name}, #{password}, #{email}, #{phone})")
-    public User insert(User user);
+    /**
+     * 登录用的，根据Mail和password查询
+     * @param mail
+     * @param password
+     * @return
+     */
+    @Select("select * from user where mail = #{mail} and password = #{password}")
+    User findByMailPassword(@Param("mail") String mail, @Param("password") String password);
 
-    @Update("update user set user_name = #{user_name}, password = #{password}, email = #{email}, phone = #{phone}, avatar = #{avatar} where user_id = #{user_id}")
-    public User update(User user);
+    /**
+     * 根据userid查询用户信息
+     * @param userId
+     * @return
+     */
+    @Select("select * from user where user_id = #{userId}")
+    User findByUserId(int userId);
 
-    @Delete("delete from user where user_id = #{id}")
-    public User delete(int id);
+    /**
+     * 更新user根据userId
+     * @param user
+     * @return
+     */
+//    @Update("update user set user_name=#{userName},mail=#{mail},phone=#{phone},password=#{password}," +
+//            " avatar=#{avatar} where user_id = #{userId}")
+    @UpdateProvider(type = UserDS.class,method = "update")
+    int updateUser(User user);
+
 }

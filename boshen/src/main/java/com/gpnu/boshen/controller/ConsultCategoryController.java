@@ -1,7 +1,11 @@
 package com.gpnu.boshen.controller;
 
 import com.gpnu.boshen.entity.ConsultCategory;
+import com.gpnu.boshen.enums.CommentStateEnum;
+import com.gpnu.boshen.enums.ConsultCategoryStateEnum;
+import com.gpnu.boshen.enums.ConsultStateEnum;
 import com.gpnu.boshen.mapper.ConsultCategoryMapper;
+import com.gpnu.boshen.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,37 +13,83 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class ConsultCategoryController {
 
     @Autowired
     private ConsultCategoryMapper consultCategoryMapper;
 
+    /**
+     * 查询所有咨询类别
+     * @return
+     */
     @GetMapping("/consult/categories")
-    public List<ConsultCategory> list() {
-        return consultCategoryMapper.list();
+    public ResultVo list() {
+        return new ResultVo(ConsultCategoryStateEnum.SUCCESS,consultCategoryMapper.list()) ;
     }
 
+    /**
+     * 添加咨询类别
+     * @param category
+     * @return
+     */
     @PostMapping("/consult/category")
-    public ConsultCategory insert(ConsultCategory category) {
-        return consultCategoryMapper.insert(category);
+    public ResultVo insert(@RequestBody ConsultCategory category) {
+        if (category.getConsultCategoryName() == null){
+            return new ResultVo(ConsultCategoryStateEnum.FAIL_NULL_PARAM);
+        }
+        consultCategoryMapper.insert(category);
+        return new ResultVo(ConsultCategoryStateEnum.SUCCESS);
     }
 
+    /**
+     * 根据id 查询咨询类别
+     * @param id
+     * @return
+     */
     @GetMapping("/consult/category/{id}")
-    public String toEditPage(@PathVariable("id") int id, Model model) {
+    public ResultVo findById(@PathVariable("id") Integer id) {
+        if (id == null) {
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
         ConsultCategory consultCategory = consultCategoryMapper.get(id);
-        model.addAttribute("consultCategory", consultCategory);
-
-        return "/consult/category/add";
+        return new ResultVo(ConsultCategoryStateEnum.SUCCESS,consultCategory);
     }
 
+    /**
+     * 改询咨询类别
+     */
     @PutMapping("/consult/category")
-    public ConsultCategory update(ConsultCategory consultCategory) {
-        return consultCategoryMapper.update(consultCategory);
+    public ResultVo update(@RequestBody ConsultCategory category){
+        if (category.getConsultCategoryName() == null || category.getConsultCategoryId() == null){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        consultCategoryMapper.update(category);
+        return new ResultVo(ConsultCategoryStateEnum.SUCCESS);
     }
 
+    /**
+     * 删除咨询类别
+     * @param id
+     * @return
+     */
     @DeleteMapping("/consult/category/{id}")
-    public ConsultCategory delete(@PathVariable("id") int id) {
-        return consultCategoryMapper.delete(id);
+    public ResultVo delete(@PathVariable("id") Integer id) {
+        if (id == null){
+            return new ResultVo(CommentStateEnum.FAIL_NULL_PARAM);
+        }
+        consultCategoryMapper.delete(id);
+        return new ResultVo(ConsultCategoryStateEnum.SUCCESS);
     }
+
+    /**
+     * 查询最多7个类别，id,name
+     */
+    @GetMapping("/consult/public")
+    public ResultVo findpublic(){
+        return new ResultVo(ConsultStateEnum.SUCCESS,consultCategoryMapper.findAllLimit(0,7));
+    }
+
+
+
 }

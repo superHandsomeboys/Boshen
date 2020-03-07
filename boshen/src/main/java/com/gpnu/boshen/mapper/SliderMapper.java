@@ -1,24 +1,38 @@
 package com.gpnu.boshen.mapper;
 
 import com.gpnu.boshen.entity.Slider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface SliderMapper  {
 
-    @Select("select * from slider where id = #{id}")
-    public Slider getSliderById(Integer id);
+    /**
+     * 查询一类型的所有轮播图
+     * @return
+     */
+    @Select("select * from slider where type=#{type}")
+    public List<Slider> list(int type);
 
-    @Select("select * from slider")
-    public List<Slider> list();
-
+    /**
+     * 添加轮播图
+     * @param slider
+     * @return
+     */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into slider(name, type, url) values (#{name}, #{type}, #{uri})")
-    public boolean insertSlider(Slider slider);
+    @Insert("insert into slider(name, type, uri) values (#{name}, #{type}, #{uri})")
+    public int insertSlider(Slider slider);
 
+    /**
+     * 删除轮播图
+     * @param sliderId
+     * @return
+     */
+    @Delete("delete from slider where id = #{sliderId}")
+    public int deleteSlider(int sliderId);
+
+
+    @Select("select * from slider where id = #{id}")
+    public Slider findbyid(int id);
 }

@@ -5,18 +5,36 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface ArticleMapper {
+    /**
+     * 增加文章
+     * @param article
+     * @return
+     */
+    @Options(useGeneratedKeys = true,keyProperty = "articleId")
+    @Insert("insert into article (content) values(#{content})")
+    public int addArticle(Article article);
 
-    @Select("select * from article where article_id = #{id}")
-    public Article getArticleById(int id);
+    /**
+     * 根据articleid删除文章
+     * @param articleId
+     * @return
+     */
+    @Delete("delete from article where article_id=#{articleId}")
+    public int deleteArticle(int articleId);
 
-    @Options(useGeneratedKeys = true, keyProperty = "article_id")
-    @Insert("insert into article(content) values (#{content})")
-    public Article insertArticle(Article article);
+    /**
+     * 更新文章
+     * @param article
+     * @return
+     */
+    @Update("update article set content=#{content} where article_id=#{articleId}")
+    public int updateArticle(Article article);
 
-    @Update("update article set content = #{content} where article_id = #{article_id}")
-    public Article update(Article article);
-
-    @Delete("delete from article where article_id = #{id}")
-    public Article delete(int id);
-
+    /**
+     * 用id查文章
+     * @param articleId
+     * @return
+     */
+    @Select("select * from article where article_id=#{articleId}")
+    public Article findArticleById(int articleId);
 }

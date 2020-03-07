@@ -1,6 +1,8 @@
 package com.gpnu.boshen.mapper;
 
+import com.gpnu.boshen.dto.ConsultInfo;
 import com.gpnu.boshen.entity.Consult;
+import com.gpnu.boshen.entity.ConsultCategory;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -8,24 +10,65 @@ import java.util.List;
 @Mapper
 public interface ConsultMapper {
 
-    @Select("select consult_id, consult_title, consult_category_name, content " +
-            "from consult " +
-            "left join consult_category on category_id = consult_category_id " +
-            "left join article on consult.article_id = article.article_id " +
-            "where consult_id = #{id};")
+    /**
+     * 用id查询咨询
+     * @param id
+     * @return
+     */
+    @Select("select * from consult where consult_id = #{id};")
     public Consult get(int id);
-    @Select("select consult_id, consult_title, consult_category_name, content " +
-            "from consult left join consult_category on category_id = consult_category_id " +
-            "left join article on consult.article_id = article.article_id;")
+
+    /**
+     * 查询所有咨询
+     * @return
+     */
+    @Select("select * from consult")
     public List<Consult> list();
 
-    @Options(useGeneratedKeys = true, keyProperty = "consult_id")
-    @Insert("insert into consult (title, article_id, consult_category_id) values (#{title}, #{article_id}, #{consult_category_id})")
-    public Consult insert(Consult consult);
+    /**
+     * 添加咨询
+     * @param consult
+     * @return
+     */
+    @Options(useGeneratedKeys = true, keyProperty = "consultId")
+    @Insert("insert into consult (consult_title, article_id, category_id) values (#{consultTitle}, #{articleId}, #{categoryId})")
+    public int insert(Consult consult);
 
-    @Update("update consult set title = #{title}, article_id = #{article_id}, consult_category_id = #{consult_category_id} where consult_id = #{consult_id}")
-    public Consult update(Consult consult);
+    /**
+     * 更新咨询
+     * @param consult
+     * @return
+     */
+    @Update("update consult set consult_title = #{consultTitle}, article_id = #{articleId}, category_id = #{categoryId} where consult_id = #{consultId}")
+    public int update(Consult consult);
 
+    /**
+     * 删除咨询
+     * @param id
+     * @return
+     */
     @Delete("delete from consult where consult_id = #{id}")
-    public Consult delete(int id);
+    public int delete(int id);
+
+    /**
+     * 根据类别id查询咨询
+     * @param categoryId
+     * @return
+     */
+    @Select("select * from consult " +
+            "where category_id = #{categoryId}")
+    public List<Consult> findByCategory(int categoryId);
+
+    /**
+     * 条件，分页查询
+     */
+    @Select("select * from consult where consult_title like #{title} limit #{start},#{quantity}")
+    public List<Consult> findByPageTitle(@Param("title") String title,@Param("start") int start,@Param("quantity")int quantity);
+    /**
+     * 根据题目的模糊查询
+     * @param consultTitle
+     * @return
+     */
+    @Select("select * from consult where consult_title like #{consultTitle}")
+    public List<ConsultInfo> findByTitle(String consultTitle);
 }

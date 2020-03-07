@@ -1,23 +1,20 @@
 package com.gpnu.boshen.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
-@NoArgsConstructor
+//@Entity 是jpa的注解
 @Data
-@Accessors(chain = true)
-public class User implements Serializable {
-
-    private int user_id;
-    private String user_name;
+public class User {
+    private Integer userId;
+    private String userName;
     private String password;
-    private String email;
+    private String mail;
     private String phone;
-    private String avatar;
-    private int user_type;
-    private Date create_time;
+    private String avatar;	//头像
+    private Integer userType;  //(1是普通用户，2是公司发布文章员，3是超级管理员)
+    private String introduce;
+    private Date createTime;
+
 }

@@ -1,18 +1,15 @@
 package com.gpnu.boshen.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-
-@NoArgsConstructor
+/**
+ * 文章
+ */
 @Data
-@Accessors(chain = true)
-public class Article implements Serializable {
-
-    private int article_id;
-
+public class Article {
+    private Integer articleId;
+    /**
+     * 文章内容
+     */
     private String content;
-
 }

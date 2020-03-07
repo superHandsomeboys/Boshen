@@ -19,42 +19,34 @@ public class DruidConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DataSource druid() {
+    public DataSource druid(){
         return new DruidDataSource();
     }
 
-    //配置druid监控
+    //配置一个后台管理的servlet
     @Bean
-    public ServletRegistrationBean statViewServlet() {
+    public ServletRegistrationBean statViewServlet(){
+        ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+        Map<String,String> initParams = new HashMap<>();
+        initParams.put("loginUsername","admin");
+        initParams.put("loginPassword","123456");
+        initParams.put("allow","");
+        bean.setInitParameters(initParams);
 
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        return bean;
 
-//        Map<String, String> initParams = new HashMap<>();
-//
-//        initParams.put("loginUsername", "admin");
-//        initParams.put("loginPassword", "123456");
-//        initParams.put("allow", "");//不写默认允许所有
-//        initParams.put("deny", "192.168.15.21");
-//
-//        servletRegistrationBean.setInitParameters(initParams);
-        return servletRegistrationBean;
     }
-
-    //配置filter过滤器
-    @Bean
-    public FilterRegistrationBean webStatFilter() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-
-        filterRegistrationBean.setFilter(new WebStatFilter());
-
-        Map<String, String> initParams = new HashMap<>();
-
-        initParams.put("exclusions", "*.js, *.css, /druid/*");
-
-        filterRegistrationBean.setInitParameters(initParams);
-
-        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
-
-        return filterRegistrationBean;
-    }
+    //
+////    //配置一个web监控的filter
+//    @Bean
+//    public FilterRegistrationBean webStatFilter(){
+//        FilterRegistrationBean bean = new FilterRegistrationBean();
+//        bean.setFilter(new WebStatFilter());
+//        Map<String,String> initParams = new HashMap<>();
+//        initParams.put("exclusions","*.js,*.css,/druid/*");
+//        bean.setInitParameters(initParams);
+//        bean.setUrlPatterns(Arrays.asList("/*"));
+//        return bean;
+//    }
 }
+

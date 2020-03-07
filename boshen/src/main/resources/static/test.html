@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+
+    <h2>111</h2>
+    <div id="app">
+        <h2>{{ msg }}</h2>
+    </div>
+
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: {},
+                PREFIX_HTTP: 'http://localhost:8080'
+            },
+            created() {
+                this.$http.get('http://localhost:8080/users').then(function (res) {
+                    this.msg = res.data;
+                    console.log(res);
+                }, function () {
+                    console.log('failed!')
+                })
+            }
+        })
+    </script>
+</body>
+</html>

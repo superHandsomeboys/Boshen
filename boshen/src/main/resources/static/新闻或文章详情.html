@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/dark.css" type="text/css" />
+
+    <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="one-page/css/et-line.css" type="text/css" />
+    <link rel="stylesheet" href="css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+    <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Theme Color Stylesheet -->
+    <link rel="stylesheet" href="demos/news/css/colors.css" type="text/css" />
+    <link rel="stylesheet" href="demos/news/css/fonts.css" type="text/css" />
+
+    <!-- News Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="demos/news/news.css" type="text/css" />
+    <!-- / -->
+
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="../static/text/css" href="include/rs-plugin/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="../static/text/css" href="include/rs-plugin/css/layers.css">
+    <link rel="stylesheet" type="../static/text/css" href="include/rs-plugin/css/navigation.css">
+
+    <!-- Document Title
+    ============================================= -->
+    <title>博慎</title>
+
+    <style>
+        /* Revolution Slider Styles */
+        .hesperiden .tp-tab { border-bottom: 0; }
+        .hesperiden .tp-tab:hover,
+        .hesperiden .tp-tab.selected { background-color: #E5E5E5; }
+
+    </style>
+    <link rel="stylesheet" href="css/imports/submit.css">
+    <!-- Vue -->
+    <script src="js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.js"></script>
+
+</head>
+
+<body class="stretched">
+
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+
+    <!-- Header
+        ============================================= -->
+    <header id="header" class="sticky-style-2">
+
+        <div class="container clearfix">
+            <div class="row justify-content-between clearfix">
+                <div class="col-md-4 col-sm-3 d-none d-sm-inline-flex align-self-center">
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-spotify">
+                        <i class="icon-weixin"></i>
+                        <i class="icon-weixin"></i>
+                    </a>
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-pinterest">
+                        <i class="icon-weibo"></i>
+                        <i class="icon-weibo"></i>
+                    </a>
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-facebook">
+                        <i class="icon-qq"></i>
+                        <i class="icon-qq"></i>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-5 col-8 align-self-center">
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo" class="divcenter nomargin">
+                        <a href="#" class="standard-logo"><img class="divcenter" src="demos/news/images/logo.png" alt=""></a>
+                        <a href="#" class="retina-logo"><img class="divcenter" src="demos/news/images/logo@2x.png" alt=""></a>
+                    </div><!-- #logo end -->
+                </div>
+
+                <div class="col-sm-4 col-4 align-self-center nomargin">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link uppercase t500" href="登录注册.html">登录</a>
+                        </li>
+                        <li class="entry-categories mt-3 d-none d-sm-inline-block" style="position: relative; left: auto;">
+                            <a class="date-today bg-dark uppercase t500" href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="header-wrap">
+            <!-- Primary Navigation
+            ============================================= -->
+            <nav id="primary-menu" class="with-arrows style-2 clearfix">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                    <ul>
+                        <li class="menu-color-home"><a href="首页.html"><div>首页</div></a></li>
+                        <li class="menu-color-lifestyle mega-menu"><a href="新闻首页.html"><div>新闻资讯</div></a>
+                            <div class="mega-menu-content style-2 border-top-0 clearfix">
+                                <ul class="mega-menu-column col-lg-3">
+                                    <li>
+                                        <div class="nav nav-sm tab-hover flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <a v-for="singlenews in news" class="nav-link bg-color-lifestyle" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'" data-toggle="pill" :href="'#v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tab" aria-controls="'v-pills-' + singlenews.newsIndexVOs[0].newsId" aria-selected="false">{{ singlenews.category }}</a>
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">新闻类别2</a>-->
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">新闻类别3</a>-->
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">新闻类别4</a>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-9">
+                                    <li>
+
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <div  v-for="singlenews in news" class="tab-pane" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tabpanel" :aria-labelledby="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4" v-for="newsinfo in singlenews.newsIndexVOs">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img :src="IMG_PREFIX_HTTP + newsinfo.imageUrl" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">{{singlenews.category}}</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">{{newsinfo.title}}</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>{{newsinfo.data.author}}</li>
+                                                                <li><i class="icon-time"></i>{{newsinfo.createTime}}</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <!--<div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/meditation.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">新闻标题.................</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>作者</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/3.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">新闻标题.................</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>作者</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                            <!--<div class="tab-pane" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/2.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/party.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/movies.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/author.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/painter.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/book.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/recipes-1.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/recipes-2.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/chef.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-sports"><a href="#"><div>服务</div></a>
+                            <div class="mega-menu-content border-top-0 style-2 clearfix">
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
+                                        <ul>
+                                            <li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别1</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别2</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别3</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
+                                        <ul>
+                                            <li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+                        <li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+                        <li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
+                    </ul>
+
+                    <!-- Mobile Menu
+                    ============================================= -->
+                    <ul class="mobile-primary-menu">
+                        <li class="active menu-color-home"><a href="首页.html"><div>首页</div></a></li>
+                        <li class="menu-color-lifestyle"><a href="新闻首页.html"><div>新闻资讯</div></a></li>
+                        <li class="menu-color-sports"><a href="#"><div>服务</div></a>
+                            <div class="mega-menu-content style-2 clearfix">
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
+                                        <ul>
+                                            <li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别1</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别2</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别3</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
+                                        <ul>
+                                            <li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+                        <li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+                        <li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
+                    </ul>
+
+                    <!-- Top Search
+                    ============================================= -->
+                    <div id="top-search">
+                        <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                        <form action="搜索结果页.html" method="get">
+                            <input type="text" name="q" class="form-control" value="" placeholder="请输入搜索词">
+                        </form>
+                    </div><!-- #top-search end -->
+
+                    <!-- Bookmark
+                    ============================================= -->
+                    <div id="top-cart"><a href="#" id="top-cart-trigger"><i class="icon-bookmark-empty t600"></i></a></div>
+
+                    <!-- Publish
+                    ============================================= -->
+                    <div id="top-publish">
+                        <a href="#" id="top-publish-trigger" data-toggle="modal" data-target="#publishSelect">
+                            <i class="icon-edit2 t600"></i>
+                        </a>
+
+                        <!-- 发布的modal
+                        ===============================================-->
+                        <div class="modal fade" id="publishSelect" tabindex="-1" role="dialog" aria-labelledby="publishSelectScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="publishSelectScrollableTitle">请选择您需要发布的文章内容</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modaln内容
+                                    ===========================================-->
+                                    <div class="modal-body">
+                                        <div class="card border-lifestyle mb-3" id="news-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="新闻发布页面.html">发布新闻文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-sports mb-3" id="server-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="#" data-toggle="modal" data-target="#serverSelect" data-dismiss="modal">发布服务文章...</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-travel mb-3" id="science-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="科技前沿发布页面.html">发布科技前沿文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-tech mb-3" id="wiki-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="能源百科发布页面.html">发布能源百科文章</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- modal尾部关闭按钮
+                                    ===============================================-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 服务的modal
+                        ====================================================-->
+                        <div class="modal fade" id="serverSelect" tabindex="-1" role="dialog" aria-labelledby="serverModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="serverModalScrollableTitle">请选择您需要发布服务的具体内容</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card border-sports mb-3" id="consult-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="咨询发布页面.html">咨询文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-sports mb-3" id="train-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="#">培训文章</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Publish end -->
+
+                </div>
+
+            </nav><!-- #primary-menu end -->
+
+        </div>
+
+    </header><!-- #header end -->
+
+
+    <!-- Content
+		============================================= -->
+    <section id="content">
+
+        <div class="content-wrap">
+
+            <div class="container clearfix">
+
+                <div class="single-post nobottommargin">
+
+                    <!-- Single Post
+                    ============================================= -->
+                    <div class="entry clearfix">
+
+                        <!-- Entry Title
+                        ============================================= -->
+                        <div class="entry-title">
+                            <h2>新闻标题</h2>
+                        </div><!-- .entry-title end -->
+
+                        <!-- Entry Meta
+                        ============================================= -->
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 10-20-2014</li>
+                            <li><a href="#"><i class="icon-user"></i> 作者名称</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">文章标签</a>, <a href="#">文章标签</a></li>
+                            <li><a href="#"><i class="icon-comments"></i> 43 评论</a></li>
+                            <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                        </ul><!-- .entry-meta end -->
+
+                        <!-- Entry Image
+                        ============================================= -->
+                        <div class="entry-image bottommargin">
+                            <a href="#"><img src="images/blog/full/10.jpg" alt="Blog Single"></a>
+                        </div><!-- .entry-image end -->
+
+                        <!-- Entry Content
+                        ============================================= -->
+                        <div class="entry-content notopmargin">
+
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+
+                            <p>Nullam id dolor id nibh ultricies vehicula ut id elit. <a href="#">Curabitur blandit tempus porttitor</a>. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula porta felis euismod semper.</p>
+
+                            <blockquote><p>Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p></blockquote>
+
+                            <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus.</p>
+
+                            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. <a href="#">Nullam quis risus eget urna</a> mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                            <pre>
+#header-inner {
+width: 940px;
+margin: 0 auto;
+padding-top: 40px;
+}</pre>
+
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+
+                            <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula porta felis euismod semper.</p>
+                            <!-- Post Single - Content End -->
+
+                            <!-- Tag Cloud
+                            ============================================= -->
+                            <div class="tagcloud clearfix bottommargin">
+                                <a href="#">general</a>
+                                <a href="#">information</a>
+                                <a href="#">media</a>
+                                <a href="#">press</a>
+                                <a href="#">gallery</a>
+                                <a href="#">illustration</a>
+                            </div><!-- .tagcloud end -->
+
+                            <div class="clear"></div>
+
+                            <!-- Post Single - Share
+                            ============================================= -->
+                            <div class="si-share noborder clearfix">
+                                <span>分享至:</span>
+                                <div>
+                                    <a href="#" class="social-icon si-borderless si-facebook">
+                                        <i class="icon-qq"></i>
+                                        <i class="icon-qq"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-borderless si-twitter">
+                                        <i class="icon-weixin"></i>
+                                        <i class="icon-weixin"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-borderless si-pinterest">
+                                        <i class="icon-weibo"></i>
+                                        <i class="icon-weibo"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-borderless si-gplus">
+                                        <i class="icon-gplus"></i>
+                                        <i class="icon-gplus"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-borderless si-rss">
+                                        <i class="icon-rss"></i>
+                                        <i class="icon-rss"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-borderless si-email3">
+                                        <i class="icon-email3"></i>
+                                        <i class="icon-email3"></i>
+                                    </a>
+                                </div>
+                            </div><!-- Post Single - Share End -->
+
+                        </div>
+                    </div><!-- .entry end -->
+
+                    <!-- Post Navigation
+                    ============================================= -->
+                    <div class="post-navigation clearfix">
+
+                        <div class="col_half nobottommargin">
+                            <a href="#">&lArr; 上一篇文章：文章标题xxxx</a>
+                        </div>
+
+                        <div class="col_half col_last tright nobottommargin">
+                            <a href="#"> 下一篇文章：文章标题xxxx &rArr;</a>
+                        </div>
+
+                    </div><!-- .post-navigation end -->
+
+                    <div class="line"></div>
+
+                    <!-- Post Author Info
+                    ============================================= -->
+                    <div class="card">
+                        <div class="card-header"><strong>文章作者 <a href="#">John Doe</a></strong></div>
+                        <div class="card-body">
+                            <div class="author-image">
+                                <img src="../static/images/author/1.jpg" alt="" class="rounded-circle">
+                            </div>
+                            作者简介巴拉巴拉巴拉巴拉
+                        </div>
+                    </div><!-- Post Single - Author End -->
+
+                    <div class="line"></div>
+
+                    <h4>相关新闻</h4>
+
+                    <div class="related-posts clearfix">
+
+                        <div class="col_half nobottommargin">
+
+                            <div class="mpost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="images/blog/small/10.jpg" alt="Blog Single"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="#">This is an Image Post</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><i class="icon-calendar3"></i> 10th July 2014</li>
+                                        <li><a href="#"><i class="icon-comments"></i> 12</a></li>
+                                    </ul>
+                                    <div class="entry-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nisi perferendis.</div>
+                                </div>
+                            </div>
+
+                            <div class="mpost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="images/blog/small/20.jpg" alt="Blog Single"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="#">This is a Video Post</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><i class="icon-calendar3"></i> 24th July 2014</li>
+                                        <li><a href="#"><i class="icon-comments"></i> 16</a></li>
+                                    </ul>
+                                    <div class="entry-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nisi perferendis.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col_half nobottommargin col_last">
+
+                            <div class="mpost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="images/blog/small/21.jpg" alt="Blog Single"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="#">This is a Gallery Post</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><i class="icon-calendar3"></i> 8th Aug 2014</li>
+                                        <li><a href="#"><i class="icon-comments"></i> 8</a></li>
+                                    </ul>
+                                    <div class="entry-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nisi perferendis.</div>
+                                </div>
+                            </div>
+
+                            <div class="mpost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="images/blog/small/22.jpg" alt="Blog Single"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="#">This is an Audio Post</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><i class="icon-calendar3"></i> 22nd Aug 2014</li>
+                                        <li><a href="#"><i class="icon-comments"></i> 21</a></li>
+                                    </ul>
+                                    <div class="entry-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nisi perferendis.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Comments
+                    ============================================= -->
+                    <div id="comments" class="clearfix">
+
+                        <h3 id="comments-title"><span>3</span> 条评论</h3>
+
+                        <!-- Comments List
+                        ============================================= -->
+                        <ol class="commentlist clearfix">
+
+                            <li class="comment even thread-even depth-1" id="li-comment-1">
+
+                                <div id="comment-1" class="comment-wrap clearfix">
+
+                                    <div class="comment-meta">
+
+                                        <div class="comment-author vcard">
+
+												<span class="comment-avatar clearfix">
+												<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="comment-content clearfix">
+
+                                        <div class="comment-author">John Doe<span><a href="#" title="Permalink to this comment">April 24, 2012 at 10:46 am</a></span></div>
+
+                                        <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                                        <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                    </div>
+
+                                    <div class="clear"></div>
+
+                                </div>
+
+
+                                <ul class='children'>
+
+                                    <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+
+                                        <div id="comment-3" class="comment-wrap clearfix">
+
+                                            <div class="comment-meta">
+
+                                                <div class="comment-author vcard">
+
+														<span class="comment-avatar clearfix">
+														<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="comment-content clearfix">
+
+                                                <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                                                <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                                                <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                            </div>
+
+                                            <div class="clear"></div>
+
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+
+                                <div id="comment-2" class="comment-wrap clearfix">
+
+                                    <div class="comment-meta">
+
+                                        <div class="comment-author vcard">
+
+												<span class="comment-avatar clearfix">
+												<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="comment-content clearfix">
+
+                                        <div class="comment-author"><a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                                        <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                                        <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                    </div>
+
+                                    <div class="clear"></div>
+
+                                </div>
+
+                            </li>
+
+                        </ol><!-- .commentlist end -->
+
+                        <div class="clear"></div>
+
+                        <!-- Comment Form
+                        ============================================= -->
+                        <div id="respond" class="clearfix">
+
+                            <h3>我要评论</h3>
+
+                            <form class="clearfix" action="#" method="post" id="commentform">
+
+                                <div class="col_one_third">
+                                    <label for="author">名字</label>
+                                    <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control" />
+                                </div>
+
+                                <div class="col_one_third">
+                                    <label for="email">邮箱</label>
+                                    <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control" />
+                                </div>
+
+                                <div class="clear"></div>
+
+                                <div class="col_full">
+                                    <label for="comment">评论内容</label>
+                                    <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control" id="comment"></textarea>
+                                </div>
+
+                                <div class="col_full nobottommargin">
+                                    <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">提交评论</button>
+                                </div>
+
+                            </form>
+
+                        </div><!-- #respond end -->
+
+                    </div><!-- #comments end -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- #content end -->
+
+    <!-- Footer
+    ============================================= -->
+    <footer id="footer" class="dark" style="background-color: #1f2024;">
+
+        <div class="container">
+
+            <!-- Footer Widgets
+            ============================================= -->
+            <div class="footer-widgets-wrap row clearfix">
+
+                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+                    <!-- Footer Widget 1
+                    ============================================= -->
+                    <div class="widget clearfix">
+                        <h4 class="mb-3 mb-sm-4">最新文章</h4>
+                        <div id="post-list-footer">
+                            <!-- Post Article -->
+                            <article class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="demos/news/images/posts/travel/small/1.jpg" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4 class="t600"><a href="#" class="text-white">文章标题</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><span>by</span> <a href="#">作者名称</a></li>
+                                        <li><i class="icon-time"></i><a href="#">11-12-2016</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+
+                            <!-- Post Article -->
+                            <article class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="demos/news/images/posts/sports/small/2.jpg" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4 class="t600"><a href="#" class="text-white">UK government weighs Tesla's Model.</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><span>by</span> <a href="#">John Doe</a></li>
+                                        <li><i class="icon-time"></i><a href="#">11-12-2016</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+
+                            <!-- Post Article -->
+                            <article class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#"><img src="demos/news/images/posts/market/small/3.jpg" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4 class="t600"><a href="#" class="text-white">Why market Is No Friend To Small Business</a></h4>
+                                    </div>
+                                    <ul class="entry-meta clearfix">
+                                        <li><span>by</span> <a href="#">John Doe</a></li>
+                                        <li><i class="icon-time"></i><a href="#">11-12-2016</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Widget 2
+                    ============================================= -->
+                <div class="col-lg-2 col-sm-6 mb-5 mb-lg-0">
+                    <h4 class="mb-3 mb-sm-4">标签</h4>
+                    <div class="tagcloud">
+                        <a href="#">文章标签</a>
+                        <a href="#">文章标签</a>
+                        <a href="#">文章标签</a>
+                        <a href="#">media</a>
+                        <a href="#">photography</a>
+                        <a href="#">parallax</a>
+                        <a href="#">ecommerce</a>
+                        <a href="#">terms</a>
+                        <a href="#">coupons</a>
+                        <a href="#">modern</a>
+                        <a href="#">magazine</a>
+                        <a href="#">bootstrap</a>
+                        <a href="#">文章标签</a>
+                        <a href="#">文章标签</a>
+                        <a href="#">文章标签</a>
+                    </div>
+                </div>
+
+                <!-- Footer Widget 3
+                ============================================= -->
+                <div class="col-lg-3 col-sm-6 mb-5 mb-sm-0">
+                    <div class="widget widget_links clearfix">
+                        <h4 class="mb-3 mb-sm-4">友情链接</h4>
+                        <ul>
+                            <li><a href="#">链接1</a></li>
+                            <li><a href="#">链接2</a></li>
+                            <li><a href="#">链接3</a></li>
+                            <li><a href="#">链接4</a></li>
+                            <li><a href="#">链接5</a></li>
+                            <li><a href="#">链接6</a></li>
+                            <li><a href="#">链接7</a></li>
+                            <li><a href="#">链接8</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer Widget 4
+                ============================================= -->
+                <div class="col-lg-3 col-sm-6 mb-0">
+                    <div class="widget widget_links clearfix">
+                        <h4 class="mb-3 mb-sm-4">联系我们</h4>
+                        <div class="row">
+
+                            <div class="col-lg-12 clearfix bottommargin-sm">
+                                <a href="#" class="social-icon si-dark si-colored si-facebook nobottommargin" style="margin-right: 10px;">
+                                    <i class="icon-phone"></i>
+                                    <i class="icon-phone"></i>
+                                </a>
+                                <a href="#"><small style="margin-top: 3px;"><strong>电话</strong><br>400-000-000</small></a>
+                            </div>
+
+                            <div class="col-lg-12 clearfix bottommargin-sm">
+                                <a href="#" class="social-icon si-dark si-colored si-twitter nobottommargin" style="margin-right: 10px;">
+                                    <i class="icon-qq"></i>
+                                    <i class="icon-qq"></i>
+                                </a>
+                                <a href="#"><small style=" margin-top: 3px;"><strong>QQ客服</strong><br>12321937971</small></a>
+                            </div>
+
+                            <div class="col-lg-12 clearfix bottommargin-sm">
+                                <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
+                                    <i class="icon-email3"></i>
+                                    <i class="icon-email3"></i>
+                                </a>
+                                <a href="#"><small style=" margin-top: 3px;"><strong>邮箱</strong><br>12321937971@qq.com</small></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Copyrights
+        ============================================= -->
+        <div id="copyrights" class="">
+
+            <div class="container clearfix">
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 align-self-center">
+                        Copyrights &copy;  1998 - 2018 U&P Think Tank. All Rights Reserved.<br>
+                        <div class="copyright-links"><a href="#">粤ICP备17031356号</a></div>
+                    </div>
+
+                    <div class="col-md-6 align-self-center">
+                        <div class="copyrights-menu fright copyright-links m-0 clearfix">
+                            <a href="#">首页</a>/<a href="#">新闻资讯</a>/<a href="#">我们的服务</a>/<a href="#">前沿科技</a>/<a href="#">能源百科</a>/<a href="#">关于我们</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- #copyrights end -->
+
+    </footer><!-- #footer end -->
+
+</div><!-- #wrapper end -->
+
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- External JavaScripts
+============================================= -->
+<script src="js/jquery.js"></script>
+<script src="js/plugins.js"></script>
+
+<!-- Footer Scripts
+============================================= -->
+<script src="js/functions.js"></script>
+
+<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
+<script src="include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<script src="include/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.carousel.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+
+<!-- Vue -->
+<script>
+    /* HEADER VUE */
+    var headerVue = new Vue({
+        el: '#header-wrap',
+        data () {
+            return {
+                PREFIX_HTTP: 'http://localhost:8080',
+                IMG_PREFIX_HTTP: 'http://localhost:8080/img/',
+                news: [{
+                    category:'',
+                    newsIndexVOs: [{
+                        newsId: 0,
+                        imageUrl: '',
+                        title: '',
+                        createTime: '',
+                        data: {
+                            author: ''
+                        }
+                    }]
+                }],
+                newscategories: {
+                    newsCategoryId: 0,
+                    newsCategoryName: ''
+                },
+                consults: []
+            }
+        },
+        created() {
+            this.$http.get(this.PREFIX_HTTP + '/news/public').then(function (response) {
+                this.news = response.data.data;
+                console.log(this.news);
+            }).catch((error) => {
+                console.log(error)
+            });
+
+            this.$http.get(this.PREFIX_HTTP + '/consult/public').then(function (response) {
+                this.consults = response.data.data;
+                console.log(this.consults);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+    })
+</script>
+
+<script>
+
+    var vm = new Vue({
+        el: ''
+    })
+
+    // Current Date
+    var weekday = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"],
+        month = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        a = new Date();
+
+    jQuery('.date-today').html( weekday[a.getDay()] + ', ' + month[a.getMonth()]  + a.getDate() + '号');
+
+    // Infinity Scroll
+    jQuery(window).on( 'load', function(){
+
+        var $container = $('.infinity-wrapper');
+
+        $container.infiniteScroll({
+            path: '.load-next-portfolio',
+            button: '.load-next-portfolio',
+            scrollThreshold: false,
+            history: false,
+            status: '.page-load-status'
+        });
+
+        $container.on( 'load.infiniteScroll', function( event, response, path ) {
+            var $items = $( response ).find('.infinity-loader');
+            // append items after images loaded
+            $items.imagesLoaded( function() {
+                $container.append( $items );
+                $container.isotope( 'insert', $items );
+                setTimeout( function(){
+                    SEMICOLON.widget.loadFlexSlider();
+                }, 1000 );
+            });
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

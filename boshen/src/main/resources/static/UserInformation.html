@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/dark.css" type="text/css" />
+
+    <link rel="stylesheet" href="/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/one-page/css/et-line.css" type="text/css" />
+    <link rel="stylesheet" href="/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
+
+    <link rel="stylesheet" href="/css/responsive.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Theme Color Stylesheet -->
+    <link rel="stylesheet" href="/demos/news/css/colors.css" type="text/css" />
+    <link rel="stylesheet" href="/demos/news/css/fonts.css" type="text/css" />
+
+    <!-- News Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="/demos/news/news.css" type="text/css" />
+    <!-- / -->
+
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="/include/rs-plugin/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/include/rs-plugin/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="/include/rs-plugin/css/navigation.css">
+
+    <!-- Document Title
+    ============================================= -->
+    <title>博慎</title>
+
+    <style>
+        /* Revolution Slider Styles */
+        .hesperiden .tp-tab { border-bottom: 0; }
+        .hesperiden .tp-tab:hover,
+        .hesperiden .tp-tab.selected { background-color: #E5E5E5; }
+
+
+    </style>
+
+    <style type="text/css">
+        .text_intro{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .bottom{
+            margin-bottom: auto;
+        }
+        .b-color{
+            background-color: cornflowerblue;
+            /*#00A0D1 slateblue #9fcdff #7E5AE2*/
+        }
+        .left_radius{
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 12px;
+        }
+        .right_radius{
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 10px;
+        }
+        .intro_font{
+            font-size: 15px;
+            padding-left: 40px;
+
+        }
+        .Field{
+            padding: 20px 0;
+            border-bottom: 1px solid #ebebeb;
+            /*border: 1px solid red;*/
+            margin-bottom: 0;
+        }
+        .input_border{
+            border: 0px;
+        }
+        .button-css{
+            background-color: inherit;
+            border: none;
+        }
+        .Field-modify-hidden {
+            opacity: 0;
+        }
+    </style>
+    <!-- Vue -->
+    <script src="js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.js"></script>
+
+</head>
+
+<body class="stretched">
+
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+
+    <!-- Header
+        ============================================= -->
+    <header id="header" class="sticky-style-2">
+
+        <div class="container clearfix">
+            <div class="row justify-content-between clearfix">
+                <div class="col-md-4 col-sm-3 d-none d-sm-inline-flex align-self-center">
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-spotify">
+                        <i class="icon-weixin"></i>
+                        <i class="icon-weixin"></i>
+                    </a>
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-pinterest">
+                        <i class="icon-weibo"></i>
+                        <i class="icon-weibo"></i>
+                    </a>
+                    <a href="#" class="social-icon inline-block si-small si-rounded si-dark si-mini si-facebook">
+                        <i class="icon-qq"></i>
+                        <i class="icon-qq"></i>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-5 col-8 align-self-center">
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo" class="divcenter nomargin">
+                        <a href="#" class="standard-logo"><img class="divcenter" src="demos/news/images/logo.png" alt=""></a>
+                        <a href="#" class="retina-logo"><img class="divcenter" src="demos/news/images/logo@2x.png" alt=""></a>
+                    </div><!-- #logo end -->
+                </div>
+
+                <div class="col-sm-4 col-4 align-self-center nomargin">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link uppercase t500" href="登录注册.html">登录</a>
+                        </li>
+                        <li class="entry-categories mt-3 d-none d-sm-inline-block" style="position: relative; left: auto;">
+                            <a class="date-today bg-dark uppercase t500" href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="header-wrap">
+            <!-- Primary Navigation
+            ============================================= -->
+            <nav id="primary-menu" class="with-arrows style-2 clearfix">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                    <ul>
+                        <li class="menu-color-home"><a href="首页.html"><div>首页</div></a></li>
+                        <li class="menu-color-lifestyle mega-menu"><a href="新闻首页.html"><div>新闻资讯</div></a>
+                            <div class="mega-menu-content style-2 border-top-0 clearfix">
+                                <ul class="mega-menu-column col-lg-3">
+                                    <li>
+                                        <div class="nav nav-sm tab-hover flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <a v-for="singlenews in news" class="nav-link bg-color-lifestyle" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'" data-toggle="pill" :href="'#v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tab" aria-controls="'v-pills-' + singlenews.newsIndexVOs[0].newsId" aria-selected="false">{{ singlenews.category }}</a>
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">新闻类别2</a>-->
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">新闻类别3</a>-->
+                                            <!--												<a class="nav-link bg-color-lifestyle" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">新闻类别4</a>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-9">
+                                    <li>
+
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <div  v-for="singlenews in news" class="tab-pane" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tabpanel" :aria-labelledby="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4" v-for="newsinfo in singlenews.newsIndexVOs">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img :src="IMG_PREFIX_HTTP + newsinfo.imageUrl" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">{{singlenews.category}}</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">{{newsinfo.title}}</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>{{newsinfo.data.author}}</li>
+                                                                <li><i class="icon-time"></i>{{newsinfo.createTime}}</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <!--<div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/meditation.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">新闻标题.................</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>作者</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/3.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">新闻标题.................</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>作者</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                            <!--<div class="tab-pane" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/2.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/party.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/movies.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/author.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/painter.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/book.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/recipes-1.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">A Surprising Tool to Help You Lifestyle</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/recipes-2.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Toyotas next minivan will let you.</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <article class="ipost">
+                                                            <div class="entry-image mb-3">
+                                                                <a href="#"><img src="demos/news/images/posts/lifestyle/chef.jpg" alt="Image 3"></a>
+                                                                <div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                <h3><a href="#">Lifestyle Your Way to Success</a></h3>
+                                                            </div>
+                                                            <ul class="entry-meta clearfix">
+                                                                <li>John Doe</li>
+                                                                <li><i class="icon-time"></i>11-12-2016</li>
+                                                            </ul>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-sports"><a href="#"><div>服务</div></a>
+                            <div class="mega-menu-content border-top-0 style-2 clearfix">
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
+                                        <ul>
+                                            <li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别1</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别2</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html#"><div>咨询类别3</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
+                                        <ul>
+                                            <li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+                        <li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+                        <li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
+                    </ul>
+
+                    <!-- Mobile Menu
+                    ============================================= -->
+                    <ul class="mobile-primary-menu">
+                        <li class="active menu-color-home"><a href="首页.html"><div>首页</div></a></li>
+                        <li class="menu-color-lifestyle"><a href="新闻首页.html"><div>新闻资讯</div></a></li>
+                        <li class="menu-color-sports"><a href="#"><div>服务</div></a>
+                            <div class="mega-menu-content style-2 clearfix">
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
+                                        <ul>
+                                            <li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别1</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别2</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别3</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+                                            <!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="mega-menu-column col-lg-6">
+                                    <li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
+                                        <ul>
+                                            <li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+                                            <li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+                        <li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+                        <li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
+                    </ul>
+
+                    <!-- Top Search
+                    ============================================= -->
+                    <div id="top-search">
+                        <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                        <form action="搜索结果页.html" method="get">
+                            <input type="text" name="q" class="form-control" value="" placeholder="请输入搜索词">
+                        </form>
+                    </div><!-- #top-search end -->
+
+                    <!-- Bookmark
+                    ============================================= -->
+                    <div id="top-cart"><a href="#" id="top-cart-trigger"><i class="icon-bookmark-empty t600"></i></a></div>
+
+                    <!-- Publish
+                    ============================================= -->
+                    <div id="top-publish">
+                        <a href="#" id="top-publish-trigger" data-toggle="modal" data-target="#publishSelect">
+                            <i class="icon-edit2 t600"></i>
+                        </a>
+
+                        <!-- 发布的modal
+                        ===============================================-->
+                        <div class="modal fade" id="publishSelect" tabindex="-1" role="dialog" aria-labelledby="publishSelectScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="publishSelectScrollableTitle">请选择您需要发布的文章内容</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modaln内容
+                                    ===========================================-->
+                                    <div class="modal-body">
+                                        <div class="card border-lifestyle mb-3" id="news-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="新闻发布页面.html">发布新闻文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-sports mb-3" id="server-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="#" data-toggle="modal" data-target="#serverSelect" data-dismiss="modal">发布服务文章...</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-travel mb-3" id="science-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="科技前沿发布页面.html">发布科技前沿文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-tech mb-3" id="wiki-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="能源百科发布页面.html">发布能源百科文章</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- modal尾部关闭按钮
+                                    ===============================================-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 服务的modal
+                        ====================================================-->
+                        <div class="modal fade" id="serverSelect" tabindex="-1" role="dialog" aria-labelledby="serverModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="serverModalScrollableTitle">请选择您需要发布服务的具体内容</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card border-sports mb-3" id="consult-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="咨询发布页面.html">咨询文章</a>
+                                            </div>
+                                        </div>
+                                        <div class="card border-sports mb-3" id="train-card">
+                                            <div class="card-body">
+                                                <a class="btn" href="#">培训文章</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Publish end -->
+
+                </div>
+
+            </nav><!-- #primary-menu end -->
+
+        </div>
+
+    </header><!-- #header end -->
+
+    <section id="content">
+
+        <div class="content-wrap" id="user_information">
+
+            <div class="container clearfix">
+
+                <div class="row visible-on accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 750px;border: 0px solid black;">
+                    <div class="clearfix col-md-3 col-lg-3 col-xl-3 col-12 col-sm-12 b-color left_radius" id="avatar_total" style="border: 0px solid red;max-height: 260px;">
+                        <!--头像以及修改头像-->
+                        <form class="bottom">
+                            <div class="clearfix divcenter" id="avatar_div" style="position: relative;max-width: 120px;border-radius: 50%;margin-top: 20px">
+                                <img v-bind:src="user_avatar.avatar" id="avatar_img"
+                                     style="height: 120px;left:0;top: 0;border-radius: 50%;"/>
+                                <input @click="update_avatar" type="file" class="form-control-file" id="avatar_file" name="avatar_file"
+                                       accept="image/*" title="点击修改我的头像"
+                                       style="cursor: pointer; width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;border-radius: 50%;"/>
+                            </div>
+                        </form><!--头像以及修改头像-->
+                        <!--用户的名字-->
+                        <p class="text-center bottom" style="font-size: large;margin-top: 15px;color: white" v-text="user.userName"></p>
+
+                        <!--用户类型-->
+                        <p class="text-center bottom" style="color: white" v-text="userType"></p>
+
+                    </div>
+                    <div class="col p-0">
+                        <div class="bottom b-color right_radius d-none d-md-block" style="padding-left: 40px;font-family: 黑体;height: 120px;">
+                            <p class="bottom h2 pt-2" style="line-height: 70px;color: whitesmoke" v-text="'Hi,'+ user.userName" v-if="user.userName"></p>
+                            <!--用户的个人介绍-->
+                            <p class="text_intro" style="color: #F0F0F0;" v-text="user.introduce"></p>
+                        </div>
+                        <!--个人信息显示及修改-->
+                        <div class="m-2 shadow" style="border: 0px solid red;">
+                            <!--名称-->
+                            <form class="Field">
+                                <div class="intro_font">
+                                    <span class="mr-5"><strong>名称</strong></span><input class="input_border" v-model="user.username">
+                                    <span>
+                                        <button @click="update_information" class="button-css ml-3 Field-modify-hidden" type="submit"><svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title>
+                                                <g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g>
+                                                </svg> 修改</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <!--密码-->
+                            <form class="Field">
+                                <div class="intro_font">
+                                    <span class="mr-5"><strong>密码</strong></span><input id="phd" type="password" class="input_border" v-model="user.password">
+                                    <span>
+                                        <button @click="update_information" class="button-css ml-3 Field-modify-hidden" type="submit"><svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title>
+                                                <g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g>
+                                                </svg> 修改</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <!--电话-->
+                            <form class="Field">
+                                <div class="intro_font">
+                                    <span class="mr-5"><strong>phone</strong></span><input class="input_border" v-model="user.phone">
+                                    <span>
+                                        <button @click="update_information" class="button-css ml-3 Field-modify-hidden" type="submit"><svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title>
+                                                <g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g>
+                                                </svg> 修改</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <!--邮箱-->
+                            <form class="Field">
+                                <div class="intro_font">
+                                    <span class="mr-5"><strong>e-mail</strong></span><input style="max-width: 120px;" class="input_border" v-model="user.mail">
+                                    <span>
+                                        <button @click="update_information" class="button-css ml-3 Field-modify-hidden" type="submit"><svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title>
+                                                <g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g>
+                                                </svg> 修改</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <!--个人简介-->
+                            <form class="Field">
+                                <div class="intro_font clearfix" style="border: 0px solid black">
+                                    <div class="mr-5 float-left" style="border: 0px solid blue;margin:0;position: relative"><strong>个人简介</strong></div><textarea id="intro_text" style="max-width: 300px;resize: none;overflow: hidden;" class="pr-0 input_border" v-model="user.introduce"></textarea>
+
+                                    <span>
+                                        <button @click="update_information" class="button-css ml-3 Field-modify-hidden" type="submit"><svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title>
+                                                <g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g>
+                                                </svg> 修改</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- #content end -->
+
+
+</div><!-- #wrapper end -->
+
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- External JavaScripts
+============================================= -->
+<script src="/js/jquery.js"></script>
+<script src="/js/plugins.js"></script>
+
+<!-- Footer Scripts
+============================================= -->
+<script src="/js/functions.js"></script>
+
+<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
+<script src="/include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<script src="/include/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.carousel.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="/include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+<script src="/asserts/js/vuejs-2.5.16.js"></script>
+<script src="/asserts/js/axios-0.18.0.js"></script>
+<script src="/asserts/js/UserInformation.js"></script>
+
+<!-- Vue -->
+<script>
+    /* HEADER VUE */
+    var headerVue = new Vue({
+        el: '#header-wrap',
+        data () {
+            return {
+                PREFIX_HTTP: 'http://localhost:8080',
+                IMG_PREFIX_HTTP: 'http://localhost:8080/img/',
+                news: [{
+                    category:'',
+                    newsIndexVOs: [{
+                        newsId: 0,
+                        imageUrl: '',
+                        title: '',
+                        createTime: '',
+                        data: {
+                            author: ''
+                        }
+                    }]
+                }],
+                newscategories: {
+                    newsCategoryId: 0,
+                    newsCategoryName: ''
+                },
+                consults: []
+            }
+        },
+        created() {
+            this.$http.get(this.PREFIX_HTTP + '/news/public').then(function (response) {
+                this.news = response.data.data;
+                console.log(this.news);
+            }).catch((error) => {
+                console.log(error)
+            });
+
+            this.$http.get(this.PREFIX_HTTP + '/consult/public').then(function (response) {
+                this.consults = response.data.data;
+                console.log(this.consults);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+    })
+</script>
+
+<script type="text/javascript">
+
+    $("#avatar_file").change(function () {
+        // 获取上传文件对象
+        var file = $(this)[0].files[0];
+        // 读取文件URL
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        // 阅读文件完成后触发的事件
+        reader.onload = function () {
+            // 读取的URL结果：this.result
+            $("#avatar_img").attr("src", this.result);
+        }
+    });
+    $(document).ready(function () {
+        //input动态变化长度
+        $(".input_border").each(function (index,el) {
+            function method1() {
+                var length =0;
+                var content = el.value.trim();
+                var size = el.value.trim().length;
+                for (var i=0;i<size;i++){
+                    var content_str = content.charAt(i);
+                    if(content_str.match(/^[\u4e00-\u9fa5]+$/)){
+                        length = length+16;
+                    }else {
+                        length = length+12;
+                    }
+                }
+                $(el).css("width",length+"px");
+            }
+            method1();
+            $(el).on("input",function () {
+                method1();
+            })
+
+        });
+
+
+        $("#phd").on("input click",function () {
+            $("#phd").attr("type","text");
+        });
+
+        $("#phd").on("mouseleave",function () {
+            $("#phd").attr("type","password");
+        });
+
+        //修改图标的显示与隐藏
+        $(".Field").hover(
+            function(){
+                // $(".Button").removeClass("Field-modify-hidden");
+                $(this).find(".button-css").removeClass("Field-modify-hidden");
+            },
+            function () {
+                // $(".Button").addClass("Field-modify-hidden");
+                $(this).find(".button-css").addClass("Field-modify-hidden");
+            }
+        );
+        function method() {
+            var size = $("#intro_text").val().length;
+            var remainder = size%19;
+            var height = parseInt(size/19);
+            if(remainder){
+                height = height+1;
+            }
+            $("#intro_text").attr("rows",height);
+        }
+        method();
+
+        $("#intro_text").on("input",function () {
+            method();
+        });
+
+
+    });
+</script>
+
+<script>
+    // Current Date
+    var weekday = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"],
+        month = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        a = new Date();
+
+    jQuery('.date-today').html( weekday[a.getDay()] + ', ' + month[a.getMonth()]  + a.getDate() + '号');
+
+    // Infinity Scroll
+    jQuery(window).on( 'load', function(){
+
+        var $container = $('.infinity-wrapper');
+
+        $container.infiniteScroll({
+            path: '.load-next-portfolio',
+            button: '.load-next-portfolio',
+            scrollThreshold: false,
+            history: false,
+            status: '.page-load-status'
+        });
+
+        $container.on( 'load.infiniteScroll', function( event, response, path ) {
+            var $items = $( response ).find('.infinity-loader');
+            // append items after images loaded
+            $items.imagesLoaded( function() {
+                $container.append( $items );
+                $container.isotope( 'insert', $items );
+                setTimeout( function(){
+                    SEMICOLON.widget.loadFlexSlider();
+                }, 1000 );
+            });
+        });
+
+    });
+
+</script>
+
+<script>
+    // Current Date
+    var weekday = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"],
+        month = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        a = new Date();
+
+    jQuery('.date-today').html( weekday[a.getDay()] + ', ' + month[a.getMonth()]  + a.getDate() + '号');
+
+    // Infinity Scroll
+    jQuery(window).on( 'load', function(){
+
+        var $container = $('.infinity-wrapper');
+
+        $container.infiniteScroll({
+            path: '.load-next-portfolio',
+            button: '.load-next-portfolio',
+            scrollThreshold: false,
+            history: false,
+            status: '.page-load-status'
+        });
+
+        $container.on( 'load.infiniteScroll', function( event, response, path ) {
+            var $items = $( response ).find('.infinity-loader');
+            // append items after images loaded
+            $items.imagesLoaded( function() {
+                $container.append( $items );
+                $container.isotope( 'insert', $items );
+                setTimeout( function(){
+                    SEMICOLON.widget.loadFlexSlider();
+                }, 1000 );
+            });
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

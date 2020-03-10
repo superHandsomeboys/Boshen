@@ -45,6 +45,10 @@
 	</style>
 	<link rel="stylesheet" href="css/imports/submit.css">
 
+	<!-- Vue -->
+	<script src="js/vue.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.js"></script>
+
 </head>
 
 <body class="stretched">
@@ -54,7 +58,7 @@
 	<div id="wrapper" class="clearfix">
 
 		<!-- Header
-		============================================= -->
+			============================================= -->
 		<header id="header" class="sticky-style-2">
 
 			<div class="container clearfix">
@@ -86,7 +90,7 @@
 					<div class="col-sm-4 col-4 align-self-center nomargin">
 						<ul class="nav justify-content-end">
 							<li class="nav-item">
-								<a class="nav-link uppercase t500" href="../templates/登录注册.html">登录</a>
+								<a class="nav-link uppercase t500" href="登录注册.html">登录</a>
 							</li>
 							<li class="entry-categories mt-3 d-none d-sm-inline-block" style="position: relative; left: auto;">
 								<a class="date-today bg-dark uppercase t500" href="#"></a>
@@ -107,16 +111,16 @@
 						<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
 						<ul>
-							<li class="active menu-color-home"><a href="首页.html"><div>首页</div></a></li>
-							<li class="menu-color-lifestyle mega-menu"><a href="../templates/新闻首页.html"><div>新闻资讯</div></a>
+							<li class="menu-color-home"><a href="首页.html"><div>首页</div></a></li>
+							<li class="menu-color-lifestyle mega-menu"><a href="新闻首页.html"><div>新闻资讯</div></a>
 								<div class="mega-menu-content style-2 border-top-0 clearfix">
 									<ul class="mega-menu-column col-lg-3">
 										<li>
 											<div class="nav nav-sm tab-hover flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-												<a class="nav-link bg-color-lifestyle active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">新闻类别1</a>
-												<a class="nav-link bg-color-lifestyle" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">新闻类别2</a>
-												<a class="nav-link bg-color-lifestyle" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">新闻类别3</a>
-												<a class="nav-link bg-color-lifestyle" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">新闻类别4</a>
+												<a v-for="singlenews in news" class="nav-link bg-color-lifestyle" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'" data-toggle="pill" :href="'#v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tab" aria-controls="'v-pills-' + singlenews.newsIndexVOs[0].newsId" aria-selected="false">{{ singlenews.category }}</a>
+<!--												<a class="nav-link bg-color-lifestyle" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">新闻类别2</a>-->
+<!--												<a class="nav-link bg-color-lifestyle" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">新闻类别3</a>-->
+<!--												<a class="nav-link bg-color-lifestyle" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">新闻类别4</a>-->
 											</div>
 										</li>
 									</ul>
@@ -124,24 +128,24 @@
 										<li>
 
 											<div class="tab-content" id="v-pills-tabContent">
-												<div class="tab-pane show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+												<div  v-for="singlenews in news" class="tab-pane" :id="'v-pills-' + singlenews.newsIndexVOs[0].newsId" role="tabpanel" :aria-labelledby="'v-pills-' + singlenews.newsIndexVOs[0].newsId + '-tab'">
 													<div class="row justify-content-around">
-														<div class="col-4">
+														<div class="col-4" v-for="newsinfo in singlenews.newsIndexVOs">
 															<article class="ipost">
 																<div class="entry-image mb-3">
-																	<a href="#"><img src="demos/news/images/posts/lifestyle/1.jpg" alt="Image 3"></a>
-																	<div class="entry-categories"><a href="#" class="bg-lifestyle">文章标签</a></div>
+																	<a href="#"><img :src="IMG_PREFIX_HTTP + newsinfo.imageUrl" alt="Image 3"></a>
+																	<div class="entry-categories"><a href="#" class="bg-lifestyle">{{singlenews.category}}</a></div>
 																</div>
 																<div class="entry-title">
-																	<h3><a href="#">新闻标题.................</a></h3>
+																	<h3><a href="#">{{newsinfo.title}}</a></h3>
 																</div>
 																<ul class="entry-meta clearfix">
-																	<li>作者</li>
-																	<li><i class="icon-time"></i>11-12-2016</li>
+																	<li>{{newsinfo.data.author}}</li>
+																	<li><i class="icon-time"></i>{{newsinfo.createTime}}</li>
 																</ul>
 															</article>
 														</div>
-														<div class="col-4">
+														<!--<div class="col-4">
 															<article class="ipost">
 																<div class="entry-image mb-3">
 																	<a href="#"><img src="demos/news/images/posts/lifestyle/meditation.jpg" alt="Image 3"></a>
@@ -170,10 +174,10 @@
 																	<li><i class="icon-time"></i>11-12-2016</li>
 																</ul>
 															</article>
-														</div>
+														</div>-->
 													</div>
 												</div>
-												<div class="tab-pane" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+												<!--<div class="tab-pane" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 													<div class="row justify-content-around">
 														<div class="col-4">
 															<article class="ipost">
@@ -319,7 +323,7 @@
 															</article>
 														</div>
 													</div>
-												</div>
+												</div>-->
 											</div>
 										</li>
 									</ul>
@@ -328,83 +332,83 @@
 							<li class="menu-color-sports"><a href="#"><div>服务</div></a>
 								<div class="mega-menu-content border-top-0 style-2 clearfix">
 									<ul class="mega-menu-column col-lg-6">
-										<li class="mega-menu-title"><a href="../templates/服务wiki模板.html"><div>咨询</div></a>
+										<li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
 											<ul>
-												<li><a href="../templates/服务wiki模板.html"><div>技术服务咨询</div></a></li>
-												<li><a href="../templates/服务wiki模板.html#"><div>咨询类别1</div></a></li>
-												<li><a href="../templates/服务wiki模板.html#"><div>咨询类别2</div></a></li>
-												<li><a href="../templates/服务wiki模板.html#"><div>咨询类别3</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别4</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别5</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别6</div></a></li>
+												<li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+<!--												<li><a href="服务wiki模板.html#"><div>咨询类别1</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html#"><div>咨询类别2</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html#"><div>咨询类别3</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
 											</ul>
 										</li>
 									</ul>
 									<ul class="mega-menu-column col-lg-6">
-										<li class="mega-menu-title"><a href="../templates/服务培训模板.html"><div>培训</div></a>
+										<li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
 											<ul>
-												<li><a href="../templates/服务培训模板.html"><div>电力市场培训</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型1</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型2</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型3</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型4</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型5</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型6</div></a></li>
+												<li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
 											</ul>
 										</li>
 									</ul>
 								</div>
 							</li>
-							<li class="menu-color-travel"><a href="../templates/科技前沿首页.html"><div>科技前沿</div></a></li>
-							<li class="menu-color-tech"><a href="../templates/能源百科.html"><div>能源百科</div></a></li>
-							<li class="menu-color-fashion"><a href="../templates/关于我们.html"><div>关于我们</div></a></li>
+							<li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+							<li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+							<li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
 						</ul>
 
 						<!-- Mobile Menu
 						============================================= -->
 						<ul class="mobile-primary-menu">
 							<li class="active menu-color-home"><a href="首页.html"><div>首页</div></a></li>
-							<li class="menu-color-lifestyle"><a href="../templates/新闻首页.html"><div>新闻资讯</div></a></li>
+							<li class="menu-color-lifestyle"><a href="新闻首页.html"><div>新闻资讯</div></a></li>
 							<li class="menu-color-sports"><a href="#"><div>服务</div></a>
 								<div class="mega-menu-content style-2 clearfix">
 									<ul class="mega-menu-column col-lg-6">
-										<li class="mega-menu-title"><a href="../templates/服务wiki模板.html"><div>咨询</div></a>
+										<li class="mega-menu-title"><a href="服务wiki模板.html"><div>咨询</div></a>
 											<ul>
-												<li><a href="../templates/服务wiki模板.html"><div>技术服务咨询</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别1</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别2</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别3</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别4</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别5</div></a></li>
-												<li><a href="../templates/服务wiki模板.html"><div>咨询类别6</div></a></li>
+												<li v-for="consult in consults"><a href="服务wiki模板.html"><div>{{consult.consultCategoryName}}</div></a></li>
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别1</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别2</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别3</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别4</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别5</div></a></li>-->
+<!--												<li><a href="服务wiki模板.html"><div>咨询类别6</div></a></li>-->
 											</ul>
 										</li>
 									</ul>
 									<ul class="mega-menu-column col-lg-6">
-										<li class="mega-menu-title"><a href="../templates/服务培训模板.html"><div>培训</div></a>
+										<li class="mega-menu-title"><a href="服务培训模板.html"><div>培训</div></a>
 											<ul>
-												<li><a href="../templates/服务培训模板.html"><div>电力市场培训</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型1</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型2</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型3</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型4</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型5</div></a></li>
-												<li><a href="../templates/服务培训模板.html"><div>培训类型6</div></a></li>
+												<li><a href="服务培训模板.html"><div>电力市场培训</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型1</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型2</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型3</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型4</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型5</div></a></li>
+												<li><a href="服务培训模板.html"><div>培训类型6</div></a></li>
 											</ul>
 										</li>
 									</ul>
 								</div>
 							</li>
-							<li class="menu-color-travel"><a href="../templates/科技前沿首页.html"><div>科技前沿</div></a></li>
-							<li class="menu-color-tech"><a href="../templates/能源百科.html"><div>能源百科</div></a></li>
-							<li class="menu-color-fashion"><a href="../templates/关于我们.html"><div>关于我们</div></a></li>
+							<li class="menu-color-travel"><a href="科技前沿首页.html"><div>科技前沿</div></a></li>
+							<li class="menu-color-tech"><a href="能源百科.html"><div>能源百科</div></a></li>
+							<li class="menu-color-fashion"><a href="关于我们.html"><div>关于我们</div></a></li>
 						</ul>
 
 						<!-- Top Search
 						============================================= -->
 						<div id="top-search">
 							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="../templates/搜索结果页.html" method="get">
+							<form action="搜索结果页.html" method="get">
 								<input type="text" name="q" class="form-control" value="" placeholder="请输入搜索词">
 							</form>
 						</div><!-- #top-search end -->
@@ -436,7 +440,7 @@
 										<div class="modal-body">
 											<div class="card border-lifestyle mb-3" id="news-card">
 												<div class="card-body">
-													<a class="btn" href="../templates/新闻发布页面.html">发布新闻文章</a>
+													<a class="btn" href="新闻发布页面.html">发布新闻文章</a>
 												</div>
 											</div>
 											<div class="card border-sports mb-3" id="server-card">
@@ -446,12 +450,12 @@
 											</div>
 											<div class="card border-travel mb-3" id="science-card">
 												<div class="card-body">
-													<a class="btn" href="../templates/科技前沿发布页面.html">发布科技前沿文章</a>
+													<a class="btn" href="科技前沿发布页面.html">发布科技前沿文章</a>
 												</div>
 											</div>
 											<div class="card border-tech mb-3" id="wiki-card">
 												<div class="card-body">
-													<a class="btn" href="../templates/能源百科发布页面.html">发布能源百科文章</a>
+													<a class="btn" href="能源百科发布页面.html">发布能源百科文章</a>
 												</div>
 											</div>
 										</div>
@@ -479,7 +483,7 @@
 										<div class="modal-body">
 											<div class="card border-sports mb-3" id="consult-card">
 												<div class="card-body">
-													<a class="btn" href="../templates/咨询发布页面.html">咨询文章</a>
+													<a class="btn" href="咨询发布页面.html">咨询文章</a>
 												</div>
 											</div>
 											<div class="card border-sports mb-3" id="train-card">
@@ -1647,6 +1651,52 @@
 	<script src="include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
 	<script src="include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
 	<script src="include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+
+	<!-- Vue -->
+	<script>
+		/* HEADER VUE */
+		var headerVue = new Vue({
+			el: '#header-wrap',
+			data () {
+				return {
+					PREFIX_HTTP: 'http://localhost:8080',
+					IMG_PREFIX_HTTP: 'http://localhost:8080/img/',
+					news: [{
+						category:'',
+						newsIndexVOs: [{
+							newsId: 0,
+							imageUrl: '',
+							title: '',
+							createTime: '',
+							data: {
+								author: ''
+							}
+						}]
+					}],
+					newscategories: {
+						newsCategoryId: 0,
+						newsCategoryName: ''
+					},
+					consults: []
+				}
+			},
+			created() {
+				this.$http.get(this.PREFIX_HTTP + '/news/public').then(function (response) {
+					this.news = response.data.data;
+					console.log(this.news);
+				}).catch((error) => {
+					console.log(error)
+				});
+
+				this.$http.get(this.PREFIX_HTTP + '/consult/public').then(function (response) {
+					this.consults = response.data.data;
+					console.log(this.consults);
+				}).catch((error) => {
+					console.log(error);
+				})
+			}
+		})
+	</script>
 
 	<!-- ADD-ONS JS FILES -->
 	<script>

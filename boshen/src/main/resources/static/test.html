@@ -8,26 +8,39 @@
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 </head>
 <body>
-
-    <h2>111</h2>
     <div id="app">
-        <h2>{{ msg }}</h2>
+        <ul v-for="msg in msgs">
+            <input type="checkbox" :value="msg.consultId" v-model="se">{{msg.consultTitle}}
+        </ul>
+
+        <div>{{se}}</div>
     </div>
 
     <script type="text/javascript">
         var vm = new Vue({
             el: '#app',
             data: {
-                msg: {},
-                PREFIX_HTTP: 'http://localhost:8080'
+                PREFIX_HTTP: 'http://localhost:8080',
+                news: {
+                    category: '',
+                    newsIndexVOs: [{
+                        newId: 0,
+                        imageUrl: '',
+                        title: '',
+                        createTime: '',
+                        data : {
+                            author: ''
+                        }
+                    }]
+                },
             },
             created() {
-                this.$http.get('http://localhost:8080/users').then(function (res) {
-                    this.msg = res.data;
+                this.$http.get(this.PREFIX_HTTP + '/news/public').then(function (res) {
                     console.log(res);
                 }, function () {
                     console.log('failed!')
-                })
+                });
+                console.log(this);
             }
         })
     </script>
